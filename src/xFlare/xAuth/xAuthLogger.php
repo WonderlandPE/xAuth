@@ -24,13 +24,13 @@ class xAuthLogger implements Listener{
   }
   public function onWrite($message){
     $file = $this->plugin->getDataFolder() . "xauthlogs.log";
-    if($this->enabled === true){
+    if($this->plugin->status === "enabled"){
       $prefix = "[Critical]";
     }
-    if($this->enabled === "failed"){
+    if($this->plugin->status === "failed"){
       $prefix = "[Failure]";
     }
-    if($this->enabled === null){
+    if($this->plugin->status === null){
       $prefix = "[PreloadError]";
     }
     $exception = "$prefix $message";
