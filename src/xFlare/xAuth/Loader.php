@@ -157,10 +157,10 @@ class Loader extends PluginBase implements Listener{
       $this->status = "failed";
       $this->totalerrors++;
     }
-    if($this->logger === true){
+    if($this->logger){
       $this->getServer()->getLogger()->info("§7[§axAuth§7] §3Logger is enabled.");
     }
-    elseif($this->debug === true){
+    elseif($this->debug){
       $this->getServer()->getLogger()->info("§7[§axAuth-Debug§7] §3Config options have been registered.");
     }
   }
