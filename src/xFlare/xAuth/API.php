@@ -8,9 +8,6 @@
  /_/\_\ /_/    \_\  \__,_|  \__| |_| |_|
                                         
                                         */
-#Provides plugins with a nice API so plugins & server owners have more control.
-#Our goal is to add an API for everything.
-
 namespace xFlare\xAuth;
 
 use pocketmine\event\Listener;
@@ -18,10 +15,12 @@ use pocketmine\Player;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Config;
 use pocketmine\Server;
+
 /*
 - Here you can access some basic xAuth data so you can use it in your plugin.
 - Open up an issue on the tracker if you think a function should be added.
 */
+
 class API implements Listener{
 	public function __construct(Loader $plugin){
         $this->plugin = $plugin;
