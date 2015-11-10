@@ -34,6 +34,11 @@ class API implements Listener{
       return $this->plugin->provider;
     }
     
+    #Get xAuth, returns plugin.
+    public function getxAuth(){
+      return $this->plugin;
+    }
+    
     #Returns a true or false value depeding on if a player has logged in.
     public function isAuthenticated(){
       return $this->plugin->loginmanager[$player->getId()];
