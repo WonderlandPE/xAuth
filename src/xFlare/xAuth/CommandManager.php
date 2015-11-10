@@ -22,4 +22,11 @@ class CommandManager implements Listener{
 	public function __construct(Loader $plugin){
         	$this->plugin = $plugin;
   	}
+  	public function onCommand(CommandSender $sender, Command $command, $label, array $args) {
+        	switch (strtolower($command->getName())){
+            		case "changepw":
+            			//Change password...
+                		break;
+        	}
+  	}
 }
