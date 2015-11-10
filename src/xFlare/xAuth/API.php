@@ -38,6 +38,11 @@ class API implements Listener{
       return $this->plugin;
     }
     
+    #Gets a config option and returns it.
+    public function getxAuthConfigOption($option){
+      return $this->plugin->getConfig()->get($option);
+    }
+    
     #Returns a true or false value depeding on if a player has logged in.
     public function isAuthenticated(){
       return $this->plugin->loginmanager[$player->getId()];
