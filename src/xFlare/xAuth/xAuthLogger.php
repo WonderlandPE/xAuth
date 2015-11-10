@@ -25,7 +25,7 @@ class xAuthLogger implements Listener{
   public function onWrite($message){
     $file = $this->plugin->getDataFolder() . "xauthlogs.log";
     if($this->plugin->status === "enabled"){
-      $prefix = "[Critical]";
+      $prefix = "[xAuth]";
     }
     if($this->plugin->status === "failed"){
       $prefix = "[Failure]";
@@ -34,6 +34,7 @@ class xAuthLogger implements Listener{
       $prefix = "[PreloadError]";
     }
     $exception = "$prefix $message";
+    $this->getServer()->getLogger()->info($exception);
     file_put_contents($file, $exception);
   }
 }
