@@ -98,7 +98,7 @@ class LoginAndRegister implements Listener{
         	}
         }
     }
-    public function proccessPassword($password, $type, $player){
+    private function proccessPassword($password, $type, $player){
     	if($this->simplePassword === true && $this->plugin->status === "enabled"){
     		if($password === 123456789 || $password === 987654321 || $password === "asdfg" || $password === "password"){
     			$player->sendMessage("[xAuth] That password is too simple!");
