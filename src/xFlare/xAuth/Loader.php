@@ -23,6 +23,7 @@ class Loader extends PluginBase implements Listener{
   public $loginmanager = [];
   public $chatprotection = [];
   public $proccessmanager = [];
+  public $mainlogger = [];
   public function onEnable(){
     $this->getServer()->getPluginManager()->registerEvents($this, $this);
     $this->version = "1.0.0";
