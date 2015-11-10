@@ -36,7 +36,6 @@ class Loader extends PluginBase implements Listener{
     $this->debug = true; //$this->getConfig()->get("debug-mode");
     $this->totalerrors = 0;
     $this->checkForConfigErrors();
-    $this->async = $this->getConfig()->get("use-async");
     if($this->async !== true && $this->provider === "mysql"){
     // $this->database = mysql; Later.
     }
@@ -152,6 +151,7 @@ class Loader extends PluginBase implements Listener{
     $this->safemode = $this->getConfig()->get("safe-mode");
     $this->logger = $this->getConfig()->get("log-xauth");
     $this->api = $this->getConfig()->get("enable-api");
+    $this->async = $this->getConfig()->get("use-async");
     if($this->safemode !== true && $this->safemode !== false || $this->simplepassword !== true && $this->simplepassword !== false || $this->allowMoving !== true && $this->allowMoving !== false || $this->allowPlace !== true && $this->allowPlace !== false || $this->allowBreak !== true && $this->allowBreak !== false || $this->allowCommand !== true && $this->allowCommand !== false || $this->debug !== false && $this->debug !== true){
       $this->getServer()->getLogger()->info("§7[§axAuth§7] §3Config to object conversion failed, please make sure you configure the config properly!");
       $this->status = "failed";
