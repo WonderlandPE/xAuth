@@ -1,6 +1,5 @@
-# xAuth config file.
-# Most of these setting are safe to configure, as long as you know what your doing.
-# xAuth has an nicebconfig error checker that will fix most issues or warn you.
+# xAuth by xFlare config file.
+# Some options may not work properly yet!
 
 #------------[Authenticatin Settings]------------#
 # Type of authentication?
