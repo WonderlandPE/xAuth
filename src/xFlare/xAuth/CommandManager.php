@@ -20,6 +20,6 @@ use pocketmine\Server;
 */
 class CommandManager implements Listener{
 	public function __construct(Loader $plugin){
-        $this->plugin = $plugin;
-  }
+        	$this->plugin = $plugin;
+  	}
 }
