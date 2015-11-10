@@ -29,20 +29,15 @@ class Loader extends PluginBase implements Listener{
     $this->version = "1.0.0";
     $this->codename = "xFlaze";
     $this->getServer()->getLogger()->info("§7[§axAuth§7] §6Starting up §axAuth $this->version ($this->codename)§7.");
-    $this->getPlugin()->onWrite("§7[§axAuth§7] §6Starting up §axAuth $this->version ($this->codename)§7.");
     $this->saveDefaultConfig();
     $this->provider = strtolower($this->getConfig()->get("autentication-type"));
     $this->status = null; //Plugin starting up...
     $this->memorymanagerdata = 0;
     $this->debug = true; //$this->getConfig()->get("debug-mode");
     $this->totalerrors = 0;
-    $this->checkForConfigErrors(0);
+    $this->checkForConfigErrors();
     $this->async = $this->getConfig()->get("use-async");
-    if($this->async !== true && $this->async !== false){
-      $this->totalerrors++;
-      $this->async = false;
-    }
-    if($this->async !== true && $this->status !== "enabled" && $this->provider === "mysql"){
+    if($this->async !== true && $this->provider === "mysql"){
     // $this->database = mysql; Later.
     }
   }
@@ -51,7 +46,7 @@ class Loader extends PluginBase implements Listener{
       $this->getServer()->getLogger()->info("§7[§axAuth§7] §3Total errors during session§7:§c $this->totalerrors");
     }
   }
-  public function checkForConfigErrors($status){ //Checks for errors, ect.
+  public function checkForConfigErrors(){
     $errors = 0;
     if($this->getConfig()->get("version") !== $this->version){
       $this->status = "failed";
@@ -82,9 +77,6 @@ class Loader extends PluginBase implements Listener{
       $this->getConfig()->save();
       $errors++;
     }
-    if($status === 1){
-      $this->getServer()->getLogger()->info("§7> §ax§dAuth §3config has been updated too $this->version§7.");
-    }
     if($this->logger !== true && $this->debug !== false){
       $this->getConfig()->set("log-xauth", true);
       $this->getConfig()->save();
@@ -93,6 +85,12 @@ class Loader extends PluginBase implements Listener{
     if($this->debug === true or $this->logger === true && !file_exists($this->getDataFolder() . "xauthlogs")){
       $this->getServer()->getLogger()->info("§7[§axAuth§7] §eCreating §axAuth §elogger§7...");
       $this->xauthlogger = new Config($this->getDataFolder() . "xauthlogs.log", Config::ENUM, array());
+    }
+    if($this->async !== true && $this->async !== false){
+      $errors++;
+      $this->getConfig()->set("use-async", false);
+      $this->getConfig()->save();
+      $this->async = false;
     }
     $this->totalerrors = $this->totalerrors + $errors;
     if($errors !== 0 || $this->totalerrors !== 0){
@@ -113,6 +111,7 @@ class Loader extends PluginBase implements Listener{
     $this->getServer()->getPluginManager()->registerEvents(new LoginTasks($this), $this);
     $this->getServer()->getPluginManager()->registerEvents(new LoginAndRegister($this), $this);
     $this->getServer()->getScheduler()->scheduleRepeatingTask(new MemoryStatus($this), 60*20);
+    $this->getServer()->getPluginManager()->registerEvents(new CommandManager($this), $this);
     if($this->getConfig()->get("database-checks") === true){
       $this->getServer()->getScheduler()->scheduleRepeatingTask(new ErrorChecks($this), 30*20);
     }
@@ -137,7 +136,7 @@ class Loader extends PluginBase implements Listener{
       $this->getServer()->getLogger()->info("§7[§axAuth§7] §3Updating xAuth config to $this->version...");
       $this->getConfig()->set("version", $this->version);
       $this->getConfig()->save();
-      $this->checkForConfigErrors(1); //Recheck for errors since the proccess was stoped to update it.
+      $this->checkForConfigErrors();
     }
     else{
       $this->getServer()->getLogger()->info("§7[§cError§7] §3xAuth called config update on null.");
