@@ -27,6 +27,9 @@ class CommandManager implements Listener{
             		case "changepw":
             			//Change password...
                 		break;
+                	case "unregister":
+            			//Unregister...
+                		break;
         	}
   	}
 }
