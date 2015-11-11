@@ -1,16 +1,25 @@
 <?php
-
-#Helps users authenticate by telling them what to do on the hotbar.
-
+/*
+                            _     _     
+            /\             | |   | |    
+ __  __    /  \     _   _  | |_  | |__  
+ \ \/ /   / /\ \   | | | | | __| | '_ \ 
+  >  <   / ____ \  | |_| | | |_  | | | |
+ /_/\_\ /_/    \_\  \__,_|  \__| |_| |_|
+                                        
+                                        */
+                                        
 namespace xFlare\xAuth;
 
 use pocketmine\Server;
 use pocketmine\scheduler\PluginTask;
+/*
+- Sends xAuth messages to hotbar.
+*/
 class AuthMessage extends PluginTask{
     public function __construct(Loader $plugin){
         parent::__construct($plugin);
         $this->plugin = $plugin;
-        $this->length = -1;
     }
     public function onRun($currentTick){
         if($this->owner->status === "enabled"){
