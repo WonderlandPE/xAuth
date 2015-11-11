@@ -10,31 +10,35 @@
                                         */
 namespace xFlare\xAuth;
 
-use pocketmine\event\Listener;
-use pocketmine\Player;
-use pocketmine\plugin\PluginBase;
-use pocketmine\utils\Config;
 use pocketmine\Server;
+use pocketmine\scheduler\PluginTask;
 /*
-- xAuth runs tasks here to log stuff if enabled. Useful to track bugs.
+- Logs everything, sends console messages.
+- Performes lag checks and more!
 */
-class xAuthLogger implements Listener{
-	public function __construct(Loader $plugin){
+class xAuthLogger extends PluginTask{
+    public function __construct(Loader $plugin){
+        parent::__construct($plugin);
         $this->plugin = $plugin;
-  }
-  public function onWrite($message){
-    $file = $this->plugin->getDataFolder() . "xauthlogs.log";
-    if($this->plugin->status === "enabled"){
-      $prefix = "[xAuth]";
+        $this->length = -1;
     }
-    if($this->plugin->status === "failed"){
-      $prefix = "[Failure]";
-    }
-    if($this->plugin->status === null){
-      $prefix = "[PreloadError]";
-    }
-    $exception = "$prefix $message";
-    $this->getServer()->getLogger()->info($exception);
-    file_put_contents($file, $exception);
+    public function onRun($currentTick){
+    	if($this->plugin->status === "enabled"){
+      		$prefix = "[xAuth]";
+    	}
+    	if($this->plugin->status === "failed"){
+      		$prefix = "[Failure]";
+    	}
+    	if($this->plugin->status === null){
+      		$prefix = "[PreloadError]";
+    	}
+    	$message = $this->owner->mainlogger[$this->loggercount];
+    	$exception = "$prefix $message";
+	$this->getServer()->getLogger()->info($exception);
+	if($this->logger){
+		$file = $this->plugin->getDataFolder() . "xauthlogs.log";
+    		file_put_contents($file, $exception);
+	}
+	$this->loggercount++;
   }
 }
