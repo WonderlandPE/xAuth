@@ -9,7 +9,6 @@
                                         
                                         */
 
-#Stops people from doing stuff, when not logged in or registered.
 namespace xFlare\xAuth;
 
 use pocketmine\event\Listener;
@@ -17,7 +16,6 @@ use pocketmine\Player;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Config;
 use pocketmine\Server;
-//Events\\
 use pocketmine\event\player\PlayerCommandPreprocessEvent;
 use pocketmine\event\player\PlayerDropItemEvent;
 use pocketmine\event\player\PlayerInteractEvent;
@@ -31,17 +29,14 @@ use pocketmine\event\block\BlockBreakEvent;
 use pocketmine\event\block\BlockPlaceEvent;
 use pocketmine\event\entity\EntityShootBowEvent;
 use pocketmine\event\player\PlayerItemConsumeEvent;
-
 /*
-- 2 = Registered. (Implementing later...)
-- 1 = Logged in.
-- 0 = Not logged in or registered.
+- Stops events from running when not logged in.
+- Protects password from chat.
 */
-
 class LoginTasks implements Listener{
 	public function __construct(Loader $plugin){
         $this->plugin = $plugin;
-        $this->message = "Please authenticate to play!";
+        $this->message = "Please authenticate firstr to play!";
         $this->disable = "xAuth is disabled at this moment.";
     }
     public function onChat(PlayerChatEvent $event){
@@ -51,6 +46,8 @@ class LoginTasks implements Listener{
     	}
     	elseif($this->plugin->safemode === true and $this->plugin->status !== "enabled"){
     		$event->setCancelled(true);
+    		$event->getPlayer()->sendMessage($this->disable);
+    
     	}
     }
     public function onDrop(PlayerDropItemEvent $event){
@@ -59,6 +56,7 @@ class LoginTasks implements Listener{
         }
         elseif($this->plugin->safemode === true and $this->plugin->status !== "enabled"){
     		$event->setCancelled(true);
+    		$event->getPlayer()->sendMessage($this->disable);
     	}
     }
     public function onCommand(PlayerCommandPreprocessEvent $event){
@@ -67,6 +65,7 @@ class LoginTasks implements Listener{
         }
         elseif($this->plugin->safemode === true and $this->plugin->status !== "enabled"){
     		$event->setCancelled(true);
+    		$event->getPlayer()->sendMessage($this->disable);
     	}
     }
     public function onInteract(PlayerInteractEvent $event){
@@ -91,6 +90,7 @@ class LoginTasks implements Listener{
         }
         elseif($this->plugin->safemode === true and $this->plugin->status !== "enabled"){
     		$event->setCancelled(true);
+    		$event->getPlayer()->sendMessage($this->disable);
     	}
     }
     public function onPlace(BlockPlaceEvent $event){
@@ -99,6 +99,7 @@ class LoginTasks implements Listener{
         }
         elseif($this->plugin->safemode === true and $this->plugin->status !== "enabled"){
     		$event->setCancelled(true);
+    		$event->getPlayer()->sendMessage($this->disable);
     	}
     }
     public function onPvP(EntityDamageEvent $event){
@@ -115,6 +116,7 @@ class LoginTasks implements Listener{
         }
         elseif($this->plugin->safemode === true and $this->plugin->status !== "enabled"){
     		$event->setCancelled(true);
+    		$event->getPlayer()->sendMessage($this->disable);
     	}
     }
     public function onFoodEat(PlayerItemConsumeEvent $event){
@@ -123,6 +125,7 @@ class LoginTasks implements Listener{
         }
         elseif($this->plugin->safemode === true and $this->plugin->status !== "enabled"){
     		$event->setCancelled(true);
+    		$event->getPlayer()->sendMessage($this->disable);
     	}
     }
     public function onJoin(PlayerJoinEvent $event){
