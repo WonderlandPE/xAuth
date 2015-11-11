@@ -28,7 +28,8 @@ class Loader extends PluginBase implements Listener{
     $this->getServer()->getPluginManager()->registerEvents($this, $this);
     $this->version = "1.0.0";
     $this->codename = "xFlaze";
-    $this->getServer()->getLogger()->info("§7[§axAuth§7] §6Starting up §axAuth $this->version ($this->codename)§7.");
+    $this->logger = 0;
+    array_push($this->mainlogger, "xAuth by xFlare has been enabled!");
     $this->saveDefaultConfig();
     $this->provider = strtolower($this->getConfig()->get("autentication-type"));
     $this->status = null; //Plugin starting up...
@@ -123,9 +124,7 @@ class Loader extends PluginBase implements Listener{
     if($this->api){
       $this->getServer()->getPluginManager()->registerEvents(new API($this), $this);
     }
-    if($this->logger){
-      $this->getServer()->getPluginManager()->registerEvents(new xAuthLogger($this), $this);
-    }
+    $this->getServer()->getScheduler()->scheduleRepeatingTask(new xAuthLogger($this), 20);
   }
   public function updateConfig($myoptions){
     if($this->debug){
