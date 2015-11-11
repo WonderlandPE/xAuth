@@ -110,11 +110,7 @@ class Loader extends PluginBase implements Listener{
   public function registerClasses(){
     $this->getServer()->getPluginManager()->registerEvents(new LoginTasks($this), $this);
     $this->getServer()->getPluginManager()->registerEvents(new LoginAndRegister($this), $this);
-    $this->getServer()->getScheduler()->scheduleRepeatingTask(new MemoryStatus($this), 60*20);
     $this->getServer()->getPluginManager()->registerEvents(new CommandManager($this), $this);
-    if($this->getConfig()->get("database-checks") === true){
-      $this->getServer()->getScheduler()->scheduleRepeatingTask(new ErrorChecks($this), 30*20);
-    }
     if($this->provider === "yml"){
       $this->registered = new Config($this->getDataFolder() . "registered.txt", Config::ENUM, array());
     }
