@@ -23,21 +23,26 @@ class xAuthLogger extends PluginTask{
         $this->length = -1;
     }
     public function onRun($currentTick){
-    	if($this->plugin->status === "enabled"){
+    	if($this->owner->status === "enabled"){
       		$prefix = "[xAuth]";
     	}
-    	if($this->plugin->status === "failed"){
+    	if($this->owner->status === "failed"){
       		$prefix = "[Failure]";
     	}
-    	if($this->plugin->status === null){
+    	if($this->owner->status === null){
       		$prefix = "[PreloadError]";
     	}
     	$message = $this->owner->mainlogger[$this->loggercount];
     	$exception = "$prefix $message";
 	$this->getServer()->getLogger()->info($exception);
-	if($this->logger){
+	if($this->owner->logger){
 		$file = $this->plugin->getDataFolder() . "xauthlogs.log";
     		file_put_contents($file, $exception);
+	}
+	if($this->owner->debug && $this->owner->loggercount > 15){
+		$this->owner->getServer()->getLogger()->info("Dumping xAuth logger data...");
+		$this->owner->mainlogger = [];
+		$this->owner->loggercount = 0;
 	}
   }
 }
