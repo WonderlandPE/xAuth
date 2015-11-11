@@ -24,8 +24,6 @@ use pocketmine\Server;
 class API implements Listener{
 	public function __construct(Loader $plugin){
         $this->plugin = $plugin;
-        $this->message = "Please authenticate to play!";
-        $this->disable = "xAuth is disabled at this moment.";
     }
     
     #Returns the provider in lowercase, the result will always be mysql or yml.
@@ -40,7 +38,13 @@ class API implements Listener{
     
     #Gets a config option and returns it.
     public function getxAuthConfigOption($option){
-      return $this->plugin->getConfig()->get($option);
+      $statement = $this->plugin->getConfig()->get($option);
+      if($statement !== false && $statement !== true){
+      	return false;
+      }
+      else{
+      	return $statement;
+      }
     }
     
     #Returns a true or false value depeding on if a player has logged in.
