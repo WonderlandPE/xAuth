@@ -37,7 +37,7 @@ class LoginTasks implements Listener{
 	public function __construct(Loader $plugin){
         $this->plugin = $plugin;
         $this->message = "Please authenticate firstr to play!";
-        $this->disable = "xAuth is disabled at this moment.";
+        $this->disable = $this->plugin->getConfig()->get("disable");
     }
     public function onChat(PlayerChatEvent $event){
     	$message = $event->getMessage();
