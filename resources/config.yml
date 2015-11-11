@@ -67,7 +67,7 @@ disable: "xAuth is disabled at this moment."
 safe-mode: true
 
 # API allows other plugins to access xAuth's data with ease, enabling it will register the API class.
-# This option is safe, but use safe-mode if you plan to enable it!
+# Safe-Mode is best with this option.
 enable-api: true
 
 # Debug-mode? (Notice: You can't turn this off on beta releases)
