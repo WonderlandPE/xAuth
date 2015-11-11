@@ -117,10 +117,10 @@ class Loader extends PluginBase implements Listener{
     if($this->getConfig()->get("hotbar-message") === true){
       $this->getServer()->getScheduler()->scheduleRepeatingTask(new AuthMessage($this), 20);
     }
+    $this->getServer()->getScheduler()->scheduleRepeatingTask(new xAuthLogger($this), 20);
     if($this->api){
       $this->getServer()->getPluginManager()->registerEvents(new API($this), $this);
     }
-    $this->getServer()->getScheduler()->scheduleRepeatingTask(new xAuthLogger($this), 20);
   }
   public function updateConfig($myoptions){
     if($this->debug){
