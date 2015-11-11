@@ -39,6 +39,5 @@ class xAuthLogger extends PluginTask{
 		$file = $this->plugin->getDataFolder() . "xauthlogs.log";
     		file_put_contents($file, $exception);
 	}
-	$this->loggercount++;
   }
 }
