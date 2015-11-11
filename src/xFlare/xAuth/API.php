@@ -15,12 +15,10 @@ use pocketmine\Player;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Config;
 use pocketmine\Server;
-
 /*
 - Here you can access some basic xAuth data so you can use it in your plugin.
 - Open up an issue on the tracker if you think a function should be added.
 */
-
 class API implements Listener{
 	public function __construct(Loader $plugin){
         $this->plugin = $plugin;
@@ -84,6 +82,7 @@ class API implements Listener{
       return true;
      }
    }
+   
    #Forces xAuth to turn on..If safemode is enabled there will be some checks to protect.
    public function forceActivatexAuth(){
    	if($this->plugin->safemode === true){
@@ -99,7 +98,6 @@ class API implements Listener{
    		$this->status = "enabled";
    		return true;
    	}
-   	
    }
 }
   
