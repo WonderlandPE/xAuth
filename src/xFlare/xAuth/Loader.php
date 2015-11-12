@@ -151,11 +151,12 @@ class Loader extends PluginBase implements Listener{
       $this->getServer()->getLogger()->info("§7[§axAuth§7] §3Config to object conversion failed, please make sure you configure the config properly!");
       $this->status = "failed";
       $this->totalerrors++;
+      return;
     }
     if($this->logger){
       $this->getServer()->getLogger()->info("§7[§axAuth§7] §3Logger is enabled.");
     }
-    elseif($this->debug){
+    if($this->debug){
       $this->getServer()->getLogger()->info("§7[§axAuth-Debug§7] §3Config options have been registered.");
     }
   }
