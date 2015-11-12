@@ -8,7 +8,6 @@
  /_/\_\ /_/    \_\  \__,_|  \__| |_| |_|
                                         
                                         */
-
 namespace xFlare\xAuth;
 
 use pocketmine\event\Listener;
@@ -38,11 +37,11 @@ class LoginAndRegister implements Listener{
     	}
     	if($this->plugin->status === "enabled"){
     		if($this->plugin->provider === "yml"){
-    			if($this->plugin->registered->exists(strowtolower($event->getPlayer()->getName()))){
-    				
+    			if($this->plugin->registered->exists(strtolower($event->getPlayer()->getName()))){
+    				$event->getPlayer()->sendMessage($this->plugin->getConfig()->get("already-registered"));	
     			}
     			else{
-    				
+    				$event->getPlayer()->sendMessage($this->plugin->getConfig()->get("registered"));
     			}
     		}
     	}
