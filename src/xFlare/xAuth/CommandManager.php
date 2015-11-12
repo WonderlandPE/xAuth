@@ -14,6 +14,8 @@ use pocketmine\event\Listener;
 use pocketmine\Player;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Config;
+use pocketmine\command\Command;
+use pocketmine\command\CommandSender;
 use pocketmine\Server;
 /*
 - Manages commands, xAuth commands are proccessed here.
