@@ -50,14 +50,14 @@ class LoginAndRegister implements Listener{
     	$message = $event->getMessage();
     }
     private function proccessPassword($password, $player){
+    	$simplepass = strtolower($password);
     	if($this->simplePassword === true && $this->plugin->status === "enabled"){
-    		if($password === 123456789 || $password === 987654321 || $password === "asdfg" || $password === "password"){
+    		if($simplepass === 123456789 || $simplepass === 987654321 || $simplepass === "asdfg" || $simplepass === "password"){
     			$player->sendMessage("[xAuth] That password is too simple!");
-    			$player->sendMessage("[xAuth] Make it harder by adding letters and numbers!");
+    			$player->sendMessage("[xAuth] Make it harder by adding letters and numbers.");
     			return;
     		}
     	}
-    	$myuser = new Config($this->myuser . "users/" . strtolower($player->getName() . ".yml"), Config::YAML);
     	if(strlen($password) > 5){
     		$player->sendMessage("[xAuth] Your password was too short!");
     		return;
@@ -66,8 +66,10 @@ class LoginAndRegister implements Listener{
     		$player->sendMessage("[xAuth] Your password was too long!");
     		return;
     	}
+    	$myuser = new Config($this->myuser . "users/" . strtolower($player->getName() . ".yml"), Config::YAML);
     	$myuser->set("password", md5($password));
     	$myuser->save();
+    	return md5($password);
     }
 }
 
