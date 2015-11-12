@@ -35,8 +35,13 @@ class API implements Listener{
     }
     
     #Get xAuth version.
-    public function getXauthVersion(){
+    public function getXAuthVersion(){
     	return $this->plugin->version;
+    }
+    
+    #Get xAuth codename.
+    public function getXAuthCodeName(){
+    	return $this->plugin->codename;
     }
     
     #Gets a config option and returns it.
