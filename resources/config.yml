@@ -29,6 +29,11 @@ simple-passcode-blocker: true
 # Require email? Will force players to use an email to register.
 require-email: false
 
+# Kick players after how many seconds of not being authenticated?
+# Not implemented yet.
+enable-kick: false
+kick-after-seconds: 120
+
 #------------[Authenticatin Settings]------------#
 
 
@@ -77,6 +82,10 @@ debug-mode: true
 
 # Creates a log file and logs things. You cannot turn this off with debug.
 log-xauth: true
+
+# Auto-Update xAuth? This is very useful for getting the latest patches instantly!
+# Not implemented
+auto-update-xauth: true
 
 # For internal use only. Do NOT edit.
 version: 1.0.0
