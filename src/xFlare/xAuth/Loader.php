@@ -77,6 +77,9 @@ class Loader extends PluginBase implements Listener{
       $this->getConfig()->save();
       $errors++;
     }
+    if($this->provider === "yml"){
+      $this->registered = new Config($this->getDataFolder() . "registered.txt", Config::ENUM, array());
+    }
     if($this->logger !== true && $this->debug !== false){
       $this->getConfig()->set("log-xauth", true);
       $this->getConfig()->save();
@@ -111,9 +114,6 @@ class Loader extends PluginBase implements Listener{
     $this->getServer()->getPluginManager()->registerEvents(new LoginTasks($this), $this);
     $this->getServer()->getPluginManager()->registerEvents(new LoginAndRegister($this), $this);
     $this->getServer()->getPluginManager()->registerEvents(new CommandManager($this), $this);
-    if($this->provider === "yml"){
-      $this->registered = new Config($this->getDataFolder() . "registered.txt", Config::ENUM, array());
-    }
     if($this->getConfig()->get("hotbar-message") === true){
       $this->getServer()->getScheduler()->scheduleRepeatingTask(new AuthMessage($this), 20);
     }
