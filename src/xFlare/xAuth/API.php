@@ -90,22 +90,5 @@ class API implements Listener{
       return true;
      }
    }
-   
-   #Forces xAuth to turn on..If safemode is enabled there will be some checks to protect.
-   public function forceActivatexAuth(){
-   	if($this->plugin->safemode === true){
-     		if($this->status !== null && $this->status !== "enabled" && $this->status !== "failed"){
-     			$this->status = "enabled";
-     			return true;
-     		}
-     		else{
-     			return false;
-     		}
-   	}
-   	else{
-   		$this->status = "enabled";
-   		return true;
-   	}
-   }
 }
   
