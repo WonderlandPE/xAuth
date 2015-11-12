@@ -75,7 +75,12 @@ class API implements Listener{
    }
    
    #Returns an array of config options, NOTE: It will not return MySQL details for your security.
-   public function sendConfigOptios(){
+   public function sendConfigOptions(){
+   }
+   
+   #Returns true or false depending on if SafeMode is enabled.
+   public function isSafeModexAuth(){
+   	return $this->owner->safemode;
    }
    
    #Disables xAuth..Dangerous since auth will turn off, but safe-mode will force-fully kick in.
