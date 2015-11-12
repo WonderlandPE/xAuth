@@ -60,6 +60,8 @@ login: "Please log-in to play."
 registered: "Please register this username."
 already-registered: "This username is already registered."
 disable: "xAuth is disabled at this moment."
+logged: "You are now logged in"
+incorrect: "Incorrect password"
 #----------------[Messages]----------------#
 
 # Safe mode, if xAuth is not enabled due to some sort of error, don't let players do anything?
