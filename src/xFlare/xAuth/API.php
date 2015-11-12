@@ -50,9 +50,12 @@ class API implements Listener{
       }
     }
     
-    #Returns a true or false value depeding on if a player has logged in.
-    public function isAuthenticated(){
-      return $this->plugin->loginmanager[$player->getId()];
+    #Returns a true or false value depending on if a player has logged in.
+    public function isAuthenticated($name){
+      if($this->getPlayer($name) !== null){
+      	$player = $this->getPlayer($name);
+      	return $this->plugin->loginmanager[$player->getId()];
+      }
     }
     
     #Important! Always check the status on your plugins or xAuth may not function right.
