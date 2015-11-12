@@ -38,16 +38,31 @@ class LoginAndRegister implements Listener{
     	if($this->plugin->status === "enabled"){
     		if($this->plugin->provider === "yml"){
     			if($this->plugin->registered->exists(strtolower($event->getPlayer()->getName()))){
-    				$event->getPlayer()->sendMessage($this->plugin->getConfig()->get("already-registered"));	
+    				$event->getPlayer()->sendMessage($this->plugin->getConfig()->get("already-registered"));
+    				$event->getPlayer()->sendMessage($this->plugin->getConfig()->get("login"));
+    				$this->plugin->loginmanager[$event->getPlayer()->getId()] = "registered";
     			}
     			else{
-    				$event->getPlayer()->sendMessage($this->plugin->getConfig()->get("registered"));
+    				$event->getPlayer()->sendMessage($this->plugin->getConfig()->get("please-register"));
+    				$this->plugin->loginmanager[$event->getPlayer()->getId()] = "not registered";
     			}
     		}
     	}
     }
     public function onChat(PlayerChatEvent $event){
     	$message = $event->getMessage();
+    	if($this->plugin->loginmanager[$event->getPlayer()->getId] === "registered"){
+    		if($this->provider === "yml"){
+    			$myuser = new Config($this->myuser . "users/" . strtolower($event->getPlayer()->getName() . ".yml"), Config::YAML);
+    			if(md5($message) === $myuser->get("password"));
+    				$this->loginmanager[$event->getPlayer()->getId()] = true;
+    				$event->getPlayer()->sendMessage($this->plugin->getConfig()->get("logged"));
+    			}
+    			else{
+    				$event->getPlayer()->sendMessage($this->plugin->getConfig()->get("incorrect"));
+    			}
+    		}
+    	}
     }
     private function proccessPassword($password, $player){
     	$simplepass = strtolower($password);
