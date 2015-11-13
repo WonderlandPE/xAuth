@@ -74,8 +74,26 @@ class API implements Listener{
       }
    }
    
-   #Returns an array of config options, NOTE: It will not return MySQL details for your security.
-   public function sendConfigOptions(){
+   #Counts all logged-in players.
+   public function countLoggedPlayers()(){
+   	$count = 0;
+   	foreach($this->getServer()->getOfflinePlayers() as $p){
+   		if($this->plugin->loginmanager[$p->getId()] === true){
+   			$count++;
+   		}
+   	}
+   	return $count;
+   }
+   
+   #Counts all not logged-in players.
+   public function countNotLoggedPlayers()(){
+   	$count = 0;
+   	foreach($this->getServer()->getOfflinePlayers() as $p){
+   		if($this->plugin->loginmanager[$p->getId()] === false){
+   			$count++;
+   		}
+   	}
+   	return $count;
    }
    
    #Returns true or false depending on if SafeMode is enabled.
