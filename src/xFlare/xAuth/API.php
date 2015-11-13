@@ -44,8 +44,12 @@ class API implements Listener{
     	return $this->plugin->codename;
     }
     
-    #Gets a config option and returns it.
+    #Gets a config option and returns it, returs false if denied.
     public function getxAuthConfigOption($option){
+      $option = strtolower($option);
+      if($option === "username" || $option === "port" || $option === "server" || $option === "password"){
+      	return false; //Nice try, your not allowed to take these options.
+      }
       $statement = $this->plugin->getConfig()->get($option);
       if($statement !== false && $statement !== true){
       	return false;
