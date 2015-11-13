@@ -6,6 +6,12 @@
 # YML or MySQL?
 autentication-type: YML
 
+# If MYSQL enabled, provide details here. No one will be able to see it.
+username: ""
+password: ""
+port: 3306
+server: ""
+
 # Authenticate players with there IP address?
 ip-auth: false
 
