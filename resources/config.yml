@@ -64,6 +64,7 @@ show-username-auth-status: true
 
 #----------------[Messages]----------------#
 # Messages sent throughout the plugin.
+# Use a line break to split chat messages, use: \n
 join: "Welcome to the server!"
 login: "Please log-in to play."
 registered: "You are now registered"
@@ -74,6 +75,16 @@ incorrect: "Incorrect password"
 error: "An error has occured"
 success: "Thanks! Please retype the password to make sure you did not make a mistake"
 no-success: "That password did not match the first one! Please type a new wanted password"
+short: "That password was too short!"
+long: "That password was too long!"
+
+# Hotbar messages if enabled.
+hotbar-login: "Please login to play!"
+hotbar-register: "Please register to play!"
+hotbar-disabled: "xAuth is currently disabled!"
+
+# If simple-passcode-blocker enabled, here are the langs:
+simple: "That password was too simple! Please add more characters."
 #----------------[Messages]----------------#
 
 # Safe mode, if xAuth is not enabled due to some sort of error, don't let players do anything?
