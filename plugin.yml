@@ -10,8 +10,8 @@ commands:
     register:
         description: Register
     changepw:
-        description: Register.
+        description: Change password.
     unregister:
-        description: Register.
+        description: Unregister account.
    
     
