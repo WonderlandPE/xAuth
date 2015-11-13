@@ -30,8 +30,17 @@ class CommandManager implements Listener{
             			//Change password...
                 		break;
                 	case "unregister":
-            			//Unregister...
+            			$this->unregisterAccount($sender);
                 		break;
         	}
+  	}
+  	private function unregisterAccount($sender){
+  		if($this->provider === "yml"){
+  			$this->plugin->registered->remove(strtolower($sender->getName()));
+  			$this->plugin->registered->save();
+  			unset($this->plugin->chatprotection[$sender->getId()]);
+  			$this->plugin->loginmanager[$sender->getId()];
+  			$sender->sendMessage("You have un-registered this account.");
+  		}
   	}
 }
