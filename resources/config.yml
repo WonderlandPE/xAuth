@@ -48,6 +48,15 @@ allow-movement: false
 allow-commands: false
 allow-block-placing: false
 allow-block-breaking: false
+allow-shoot-arrows: false
+allow-drops: false
+allow-pvp: false
+allow-damage: false
+
+# Save settings to memeory or pull from config directly?
+# Saving to memeory is faster, but pulling from config is more conveinent. 
+# Not implemented
+save-to-memory: true
 #------------[Auth Events]------------#
 
 
