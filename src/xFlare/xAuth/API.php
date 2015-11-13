@@ -49,10 +49,16 @@ class API implements Listener{
       $option = strtolower($option);
       if($option === "username" || $option === "port" || $option === "server" || $option === "password"){
       	return false; //Nice try, your not allowed to take these options.
+      	$prefix = $this->plugin->prefix;
+      	array_push($this->plugin->mainlogger, "$prefix Plugin tried to access protected data!");
       }
       $statement = $this->plugin->getConfig()->get($option);
       if($statement !== false && $statement !== true){
       	return false;
+      	if($this->plugin->debug){
+      		$prefix = $this->plugin->prefix;
+      	 	array_push($this->plugin->mainlogger, "$prefix Plugin tried to get an invaild option!");
+      	}
       }
       else{
       	return $statement;
