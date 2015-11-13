@@ -29,7 +29,7 @@ class Loader extends PluginBase implements Listener{
     $this->version = "1.0.0";
     $this->codename = "xFlaze";
     $this->prefix = "§7[§dx§aAuth§7]";
-    $this->loggercount = 0;
+    $this->loggercount = -1;
     $this->getServer()->getLogger()->info("xAuth by xFlare is starting up...");
     $this->saveDefaultConfig();
     $this->provider = strtolower($this->getConfig()->get("autentication-type"));
