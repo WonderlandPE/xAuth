@@ -27,12 +27,15 @@ class CommandManager implements Listener{
   	public function onCommand(CommandSender $sender, Command $command, $label, array $args) {
         	switch (strtolower($command->getName())){
             		case "changepw":
-            			//Change password...
+            			return; //Not ready yet
+            			$this->changeMyPassword($sender);
                 		break;
                 	case "unregister":
             			$this->unregisterAccount($sender);
                 		break;
         	}
+  	}
+  	private function changeMyPassword($sender){
   	}
   	private function unregisterAccount($sender){
   		if($this->provider === "yml"){
