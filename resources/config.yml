@@ -17,13 +17,13 @@ use-async: false
 # Only for MySQL
 database-checks: false
 
-# Send users a message below the hot bar letting them know what to do? (Recommend you keep this on)
+# Send users a message below the hot bar? Ex: "Please login to play!"
 hotbar-message: true
 
-# Enable password changing?
+# Enable password changing? Will enable /changepw
 enable-pass-changing: true
 
-# Block simple passwords?
+# Block simple passwords? Prevents players from easily guessing players passwords!
 simple-passcode-blocker: true
 
 # Require email? Will force players to use an email to register.
@@ -98,7 +98,7 @@ enable-api: true
 # Debug-mode? (Notice: You can't turn this off on beta releases)
 debug-mode: true
 
-# Creates a log file and logs things. You cannot turn this off with debug.
+# Creates a log file and logs console outputs. You cannot turn this off with debug.
 log-xauth: true
 
 # Auto-Update xAuth? This is very useful for getting the latest patches instantly!
