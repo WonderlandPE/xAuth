@@ -28,6 +28,7 @@ class Loader extends PluginBase implements Listener{
     $this->getServer()->getPluginManager()->registerEvents($this, $this);
     $this->version = "1.0.0";
     $this->codename = "xFlaze";
+    $this->prefix = "§7[§dx§aAuth§7]";
     $this->loggercount = 0;
     array_push($this->mainlogger, "xAuth by xFlare has been enabled!");
     $this->saveDefaultConfig();
