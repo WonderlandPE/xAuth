@@ -72,6 +72,8 @@ disable: "xAuth is disabled at this moment."
 logged: "You are now logged in"
 incorrect: "Incorrect password"
 error: "An error has occured"
+success: "Thanks! Please retype the password to make sure you did not make a mistake"
+no-success: "That password did not match the first one! Please type a new wanted password"
 #----------------[Messages]----------------#
 
 # Safe mode, if xAuth is not enabled due to some sort of error, don't let players do anything?
