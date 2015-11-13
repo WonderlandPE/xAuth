@@ -26,6 +26,7 @@ class xAuthLogger extends PluginTask{
     	if($this->owner->lastlog === $exception){
     		return;
     	}
+    	$this->owner->loggercount++;
     	if($this->owner->status === "enabled"){
       		$prefix = "[xAuth]";
     	}
@@ -35,7 +36,7 @@ class xAuthLogger extends PluginTask{
     	if($this->owner->status === null){
       		$prefix = "[PreloadError]";
     	}
-    	$message = $this->owner->mainlogger[$this->loggercount];
+    	$message = $this->owner->mainlogger[$this->owner->loggercount];
     	$exception = "$prefix $message";
 	$this->getServer()->getLogger()->info($exception);
 	if($this->owner->logger){
