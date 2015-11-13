@@ -40,22 +40,22 @@ class LoginAndRegister implements Listener{
     			if($this->plugin->registered->exists(strtolower($event->getPlayer()->getName()))){
     				$event->getPlayer()->sendMessage($this->plugin->getConfig()->get("already-registered"));
     				$event->getPlayer()->sendMessage($this->plugin->getConfig()->get("login"));
-    				$this->plugin->loginmanager[$event->getPlayer()->getId()] = "registered";
+    				$this->plugin->loginmanager[$event->getPlayer()->getId()] = 1;
     			}
     			else{
     				$event->getPlayer()->sendMessage($this->plugin->getConfig()->get("please-register"));
-    				$this->plugin->loginmanager[$event->getPlayer()->getId()] = "not registered";
+    				$this->plugin->loginmanager[$event->getPlayer()->getId()] = 0;
     			}
     		}
     	}
     }
     public function onChat(PlayerChatEvent $event){
     	$message = $event->getMessage();
-    	if($this->plugin->loginmanager[$event->getPlayer()->getId] === "registered"){
-    		if($this->provider === "yml"){
+    	if($this->plugin->loginmanager[$event->getPlayer()->getId] === 1){
+    		if($this->plugin->provider === "yml"){
     			$myuser = new Config($this->myuser . "users/" . strtolower($event->getPlayer()->getName() . ".yml"), Config::YAML);
     			if(md5($message) === $myuser->get("password"));
-    				$this->loginmanager[$event->getPlayer()->getId()] = true;
+    				$this->plugin->loginmanager[$event->getPlayer()->getId()] = true;
     				$event->getPlayer()->sendMessage($this->plugin->getConfig()->get("logged"));
     			}
     			else{
@@ -63,6 +63,18 @@ class LoginAndRegister implements Listener{
     			}
     		}
     	}
+    	if($this->plugin->loginmanager[$event->getPlayer()->getId()] === 0 && !isset($this->plugin->chatprotection[$event->getPlayer()->getId()])){
+    		if($this->plugin->provider === "yml"){
+    			$this->plugin->chatprotection = $this->proccessPassword($message, $event->getPlayer());
+    			if(isset($this->plugin->chatprotection[$event->getPlayer()->getId])){
+    				$event->getPlayer()->sendMessage("Thanks! Please retype the password to make sure there where no mistakes.");
+    			}
+    		}
+    	}
+    	if($this->plugin->loginmanager[$event->getPlayer()->getId()] === 0 && isset($this->plugin->chatprotection[$event->getPlayer()->getId()])){
+    		if(md5($message) === $this->plugin->chatprotection[$event->getPlayer()->getId()]){
+    			$event->getPlayer()->sendMessage("You are now registered.");
+    		}
     }
     private function proccessPassword($password, $player){
     	$simplepass = strtolower($password);
@@ -70,6 +82,7 @@ class LoginAndRegister implements Listener{
     		if($simplepass === 123456789 || $simplepass === 987654321 || $simplepass === "asdfg" || $simplepass === "password"){
     			$player->sendMessage("[xAuth] That password is too simple!");
     			$player->sendMessage("[xAuth] Make it harder by adding letters and numbers.");
+    			unset($this->plugin->chatprotection[$event->getPlayer()->getId()]);
     			return;
     		}
     	}
