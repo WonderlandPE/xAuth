@@ -30,7 +30,7 @@ class Loader extends PluginBase implements Listener{
     $this->codename = "xFlaze";
     $this->prefix = "§7[§dx§aAuth§7]";
     $this->loggercount = 0;
-    array_push($this->mainlogger, "xAuth by xFlare has been enabled!");
+    $this->getServer()->getLogger()->info("xAuth by xFlare is starting up...");
     $this->saveDefaultConfig();
     $this->provider = strtolower($this->getConfig()->get("autentication-type"));
     $this->status = null; //Plugin starting up...
@@ -104,7 +104,6 @@ class Loader extends PluginBase implements Listener{
     if($this->status === null){
       $this->registerClasses();
       $this->status = "enabled";
-      $this->getServer()->getLogger()->info("§7> §axAuth §3has been §aenabled§7.");
     }
     elseif($this->status !== null){
       $this->status = "failed";
@@ -122,6 +121,7 @@ class Loader extends PluginBase implements Listener{
     if($this->api){
       $this->getServer()->getPluginManager()->registerEvents(new API($this), $this);
     }
+    array_push($this->mainlogger, "§7> §axAuth §3has been §aenabled§7.");
   }
   public function updateConfig($myoptions){
     if($this->debug){
