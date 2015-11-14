@@ -81,20 +81,21 @@ show-username-auth-status: true
 # Messages sent throughout the plugin.
 # Use a line break to split chat messages. Use: \n
 # Add a splash a color with color symbols! Use: §<letter/number>
-join: "Welcome to the server!"
+join: "Welcome to my server!"
 login: "Please log-in to play."
-registered: "You are now registered"
+registered: "You are now registered."
 already-registered: "This username is already registered."
 disable: "xAuth is disabled at this moment."
-logged: "You are now logged in"
-incorrect: "Incorrect password"
-error: "An error has occured"
-success: "Thanks! Please retype the password to make sure you did not make a mistake"
-no-success: "That password did not match the first one! Please type a new wanted password"
+logged: "You are now logged in."
+incorrect: "Incorrect password."
+error: "An error has occured."
+success: "Thanks! Please retype the password to make sure you did not make a mistake."
+no-success: "That password did not match the first one! Please type a new wanted password".
 short: "That password was too short!"
 long: "That password was too long!"
 please-register: "Please regster this account to play!"
 wanted: "Type your wanted password in chat."
+sharing: "Do not share your password!"
 
 # Hotbar messages if enabled.
 hotbar-login: "Please login to play!"
