@@ -97,11 +97,11 @@ class LoginAndRegister implements Listener{
         }
     }
     private function proccessPassword($password, $player){
-    	if(strlen($password) < 5){
+    	if(strlen($password) < $this->plugin->short){
     		$player->sendMessage($this->plugin->getConfig()->get("short"));
     		return;
     	}
-    	if(strlen($password) > 15){
+    	if(strlen($password) > $this->plugin->max){
     		$player->sendMessage($this->plugin->getConfig()->get("long"));
     		return;
     	}

@@ -15,6 +15,10 @@ server: ""
 # Authenticate players with there IP address?
 ip-auth: false
 
+# How many characters must a password be?
+max-characters: 10
+shortest-characters: 6
+
 # Use aysnc task to login? (Huge performamce boost, but may cause a half a sec tick delay when reciveing password)
 # Only for MySQL
 use-async: false

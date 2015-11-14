@@ -74,6 +74,11 @@ class Loader extends PluginBase implements Listener{
       $this->getServer()->getLogger()->info("§7[§cError§7] §3Invaild §ax§dAuth §3provider§7!");
       $this->getServer()->shutdown();
     }
+    if($this->max < 0 or $this->short < 0){
+      $this->max = 15;
+      $this->short = 6;
+      $errors++;
+    }
     if($this->getConfig()->get("database-checks") === true && $this->provider !== "mysql"){
       $this->getConfig()->set("data-checks", false);
       $this->getConfig()->save();
@@ -151,6 +156,8 @@ class Loader extends PluginBase implements Listener{
     $this->logger = $this->getConfig()->get("log-xauth");
     $this->api = $this->getConfig()->get("enable-api");
     $this->async = $this->getConfig()->get("use-async");
+    $this->max = $this->getConfig()->get("max-characters");
+    $this->short = $this->getConfig()->get("shortest-characters");
     if($this->safemode !== true && $this->safemode !== false || $this->simplepassword !== true && $this->simplepassword !== false || $this->allowMoving !== true && $this->allowMoving !== false || $this->allowPlace !== true && $this->allowPlace !== false || $this->allowBreak !== true && $this->allowBreak !== false || $this->allowCommand !== true && $this->allowCommand !== false || $this->debug !== false && $this->debug !== true){
       $this->getServer()->getLogger()->info("§7[§axAuth§7] §3Config to object conversion failed, please make sure you configure the config properly!");
       $this->status = "failed";
