@@ -46,7 +46,7 @@ class LoginTasks implements Listener{
         }
     	if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getPlayer()->getId()] === true && $this->plugin->chatprotection[$event->getPlayer()->getId()] === md5($message)){
     		$event->setCancelled(true); //Sharing is caring, but don't share passwords!
-            $event->getPlayer()->sendMessage("Do not share your password!");
+            	$event->getPlayer()->sendMessage($this->plugin->getConfig()->get("sharing"));
     	}
     	elseif($this->plugin->safemode === true and $this->plugin->status !== "enabled"){
     		$event->setCancelled(true);
