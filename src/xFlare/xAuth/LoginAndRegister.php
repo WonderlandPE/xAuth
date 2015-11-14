@@ -32,6 +32,10 @@ class LoginAndRegister implements Listener{
     		$event->getPlayer()->sendMessage("[xAuth] This server is protected by xAuth.");
     		$event->getPlayer()->sendMessage($this->plugin->getConfig()->get("join"));
     	}
+        if($this->plugin->usernamestatus === true){
+            $name = $event->getPlayer()->getName();
+            $event->getPlayer()->setNameTag("[Processing..] $name");
+        }
     	if($this->plugin->safemode && $this->plugin->status !== "enabled"){
     		$event->getPlayer()->sendMessage($this->plugin->getConfig()->get("disable"));
     	}
@@ -40,11 +44,13 @@ class LoginAndRegister implements Listener{
     			if($this->plugin->registered->exists(strtolower($event->getPlayer()->getName()))){
     				$event->getPlayer()->sendMessage($this->plugin->getConfig()->get("already-registered"));
     				$event->getPlayer()->sendMessage($this->plugin->getConfig()->get("login"));
+                    $event->getPlayer()->setNameTag("[Not-Logged-In] $name");
     				$this->plugin->loginmanager[$event->getPlayer()->getId()] = 1;
     			}
     			else{
     				$event->getPlayer()->sendMessage($this->plugin->getConfig()->get("please-register"));
                     $event->getPlayer()->sendMessage($this->plugin->getConfig()->get("wanted"));
+                    $event->getPlayer()->setNameTag("[Not-Registered] $name");
     				$this->plugin->loginmanager[$event->getPlayer()->getId()] = 0;
     			}
     		}
@@ -58,6 +64,7 @@ class LoginAndRegister implements Listener{
     			if(md5($message) === $myuser->get("password")){
     				$this->plugin->loginmanager[$event->getPlayer()->getId()] = true;
                     $this->plugin->chatprotection[$event->getPlayer()->getId()] = md5($message);
+                    $event->getPlayer()->setNameTag("$name");
     				$event->getPlayer()->sendMessage($this->plugin->getConfig()->get("logged"));
     			}
     			else{

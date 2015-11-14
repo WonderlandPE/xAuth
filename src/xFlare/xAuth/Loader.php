@@ -158,6 +158,7 @@ class Loader extends PluginBase implements Listener{
     $this->async = $this->getConfig()->get("use-async");
     $this->max = $this->getConfig()->get("max-characters");
     $this->short = $this->getConfig()->get("shortest-characters");
+    $this->usernamestatus = $this->getConfig()->get("show-username-auth-status");
     if($this->safemode !== true && $this->safemode !== false || $this->simplepassword !== true && $this->simplepassword !== false || $this->allowMoving !== true && $this->allowMoving !== false || $this->allowPlace !== true && $this->allowPlace !== false || $this->allowBreak !== true && $this->allowBreak !== false || $this->allowCommand !== true && $this->allowCommand !== false || $this->debug !== false && $this->debug !== true){
       $this->getServer()->getLogger()->info("§7[§axAuth§7] §3Config to object conversion failed, please make sure you configure the config properly!");
       $this->status = "failed";
