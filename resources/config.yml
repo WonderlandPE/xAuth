@@ -93,6 +93,8 @@ success: "Thanks! Please retype the password to make sure you did not make a mis
 no-success: "That password did not match the first one! Please type a new wanted password"
 short: "That password was too short!"
 long: "That password was too long!"
+please-register: "Please regster this account to play!"
+wanted: "Type your wanted password in chat."
 
 # Hotbar messages if enabled.
 hotbar-login: "Please login to play!"
