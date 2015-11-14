@@ -85,7 +85,7 @@ class API implements Listener{
    }
    
    #Counts all logged-in players.
-   public function countLoggedPlayers()(){
+   public function countLoggedPlayers(){
    	$count = 0;
    	foreach($this->getServer()->getOfflinePlayers() as $p){
    		if($this->plugin->loginmanager[$p->getId()] === true){
@@ -96,7 +96,7 @@ class API implements Listener{
    }
    
    #Counts all not logged-in players.
-   public function countNotLoggedPlayers()(){
+   public function countNotLoggedPlayers(){
    	$count = 0;
    	foreach($this->getServer()->getOfflinePlayers() as $p){
    		if($this->plugin->loginmanager[$p->getId()] === false){

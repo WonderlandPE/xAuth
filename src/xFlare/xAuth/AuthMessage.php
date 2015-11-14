@@ -32,12 +32,13 @@ class AuthMessage extends PluginTask{
                 if($this->owner->safemode === true && $this->owner->status !== "enabled"){
                   $p->sendTip($this->disable);
                 }
-                elseif($this->owner->loginmanager[$p->getId()] === 0){
+                elseif(isset($this->owner->loginmanager[$p->getId()]) && $this->owner->loginmanager[$p->getId()] === 1){
                    $p->sendTip($this->loginhotbar);
                 }
-                elseif($this->owner->loginmanager[$p->getId()] === 1){
+                elseif(isset($this->owner->loginmanager[$p->getId()]) && $this->owner->loginmanager[$p->getId()] === 0){
                    $p->sendTip($this->registerhotbar);
-            } 
+                }
+            }
         }
     }
 }

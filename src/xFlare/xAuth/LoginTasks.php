@@ -41,8 +41,12 @@ class LoginTasks implements Listener{
     }
     public function onChat(PlayerChatEvent $event){
     	$message = $event->getMessage();
-    	if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getPlayer()->getId()] === 0 && $this->plugin->chatprotection[$event->getPlayer()->getId()] === md5($message)){
+        if($this->plugin->loginmanager[$event->getPlayer()->getId()] !== true){
+            $event->setCancelled(true); //Don't allow chat when not authenticated.
+        }
+    	if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getPlayer()->getId()] === true && $this->plugin->chatprotection[$event->getPlayer()->getId()] === md5($message)){
     		$event->setCancelled(true); //Sharing is caring, but don't share passwords!
+            $event->getPlayer()->sendMessage("Do not share your password!");
     	}
     	elseif($this->plugin->safemode === true and $this->plugin->status !== "enabled"){
     		$event->setCancelled(true);
@@ -51,7 +55,7 @@ class LoginTasks implements Listener{
     	}
     }
     public function onDrop(PlayerDropItemEvent $event){
-        if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getPlayer()->getId()] === 0){
+        if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getPlayer()->getId()] !== true){
             $event->setCancelled(true);
         }
         elseif($this->plugin->safemode === true and $this->plugin->status !== "enabled"){
@@ -60,7 +64,7 @@ class LoginTasks implements Listener{
     	}
     }
     public function onCommand(PlayerCommandPreprocessEvent $event){
-        if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getPlayer()->getId()] === 0 && $this->plugin->allowCommand !== true && substr($event->getMessage(), 0, 1) === '/'){ 
+        if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getPlayer()->getId()] !== true && $this->plugin->allowCommand !== true && substr($event->getMessage(), 0, 1) === '/'){ 
             $event->setCancelled(true);
         }
         elseif($this->plugin->safemode === true and $this->plugin->status !== "enabled"){
@@ -69,7 +73,7 @@ class LoginTasks implements Listener{
     	}
     }
     public function onInteract(PlayerInteractEvent $event){
-        if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getPlayer()->getId()] === 0){
+        if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getPlayer()->getId()] !== true){
             $event->setCancelled(true);
         }
         elseif($this->plugin->safemode === true and $this->plugin->status !== "enabled"){
@@ -77,7 +81,7 @@ class LoginTasks implements Listener{
     	}
     }
     public function onMove(PlayerMoveEvent $event){
-        if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getPlayer()->getId()] === 0 && $this->plugin->allowMoving !== true){
+        if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getPlayer()->getId()] !== true && $this->plugin->allowMoving !== true){
             $event->setCancelled(true);
         }
         elseif($this->plugin->safemode === true and $this->plugin->status !== "enabled"){
@@ -85,7 +89,7 @@ class LoginTasks implements Listener{
     	}
     }
     public function onBreak(BlockBreakEvent $event){
-        if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getPlayer()->getId()] === 0 && $this->plugin->allowBreak !== true){
+        if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getPlayer()->getId()] !== true && $this->plugin->allowBreak !== true){
             $event->setCancelled(true);
         }
         elseif($this->plugin->safemode === true and $this->plugin->status !== "enabled"){
@@ -94,7 +98,7 @@ class LoginTasks implements Listener{
     	}
     }
     public function onPlace(BlockPlaceEvent $event){
-        if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getPlayer()->getId()] === 0 && $this->plugin->allowPlace !== true){
+        if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getPlayer()->getId()] !== true && $this->plugin->allowPlace !== true){
             $event->setCancelled(true);
         }
         elseif($this->plugin->safemode === true and $this->plugin->status !== "enabled"){
@@ -103,7 +107,7 @@ class LoginTasks implements Listener{
     	}
     }
     public function onPvP(EntityDamageEvent $event){
-        if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getEntity()->getId()] === 0){
+        if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getEntity()->getId()] !== true){
             $event->setCancelled(true);
         }
         elseif($this->plugin->safemode === true and $this->plugin->status !== "enabled"){
@@ -111,7 +115,7 @@ class LoginTasks implements Listener{
         }
     } 
     public function onBowShoot(EntityShootBowEvent $event){
-        if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getEntity()->getId()] === 0){
+        if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getEntity()->getId()] !== true){
             $event->setCancelled(true);
         }
         elseif($this->plugin->safemode === true and $this->plugin->status !== "enabled"){
@@ -120,7 +124,7 @@ class LoginTasks implements Listener{
     	}
     }
     public function onFoodEat(PlayerItemConsumeEvent $event){
-        if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getEntity()->getId()] === 0){
+        if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getEntity()->getId()] !== true){
             $event->setCancelled(true);
         }
         elseif($this->plugin->safemode === true and $this->plugin->status !== "enabled"){

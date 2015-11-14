@@ -23,9 +23,10 @@ class xAuthLogger extends PluginTask{
         $this->length = -1;
     }
     public function onRun($currentTick){
-    	if($this->owner->lastlog === $exception){
+    	if(!isset($this->owner->mainlogger[$this->owner->loggercount])){
     		return;
     	}
+        $message = $this->owner->mainlogger[$this->owner->loggercount];
     	$this->owner->loggercount++;
     	if($this->owner->status === "enabled"){
       		$prefix = "[xAuth]";
@@ -36,18 +37,17 @@ class xAuthLogger extends PluginTask{
     	if($this->owner->status === null){
       		$prefix = "[PreloadError]";
     	}
-    	$message = $this->owner->mainlogger[$this->owner->loggercount];
     	$exception = "$prefix $message";
-	$this->getServer()->getLogger()->info($exception);
-	if($this->owner->logger){
-		$file = $this->plugin->getDataFolder() . "xauthlogs.log";
-    		file_put_contents($file, $exception);
-	}
-	if($this->owner->debug && $this->owner->loggercount > 15){
-		$this->owner->getServer()->getLogger()->info("Dumping xAuth logger data...");
-		$this->owner->mainlogger = [];
-		$this->owner->loggercount = 0;
-	}
-	$this->owner->lastlog = $exception;
-  }
+	    $this->owner->getServer()->getLogger()->info($exception);
+	    if($this->owner->logger){
+		  $file = $this->plugin->getDataFolder() . "xauthlogs.log";
+    	  file_put_contents($file, $exception);
+	    }
+	    if($this->owner->debug && $this->owner->loggercount > 15){
+		  $this->owner->getServer()->getLogger()->info("Dumping xAuth logger data...");
+		  $this->owner->mainlogger = [];
+		  $this->owner->loggercount = 0;
+	    }  
+	    $this->owner->lastlog = $exception;
+    }
 }

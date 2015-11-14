@@ -29,13 +29,14 @@ class Loader extends PluginBase implements Listener{
     $this->version = "1.0.0";
     $this->codename = "xFlaze";
     $this->prefix = "§7[§dx§aAuth§7]";
-    $this->loggercount = -1;
-    $this->getServer()->getLogger()->info("xAuth by xFlare is starting up...");
+    $this->loggercount = 0;
+    $this->lastlog = null;
+    $this->getServer()->getLogger()->info("§dx§aAuth §3by §axFlare §3is starting up§7...");
     $this->saveDefaultConfig();
     $this->provider = strtolower($this->getConfig()->get("autentication-type"));
     $this->status = null; //Plugin starting up...
     $this->memorymanagerdata = 0;
-    $this->debug = true; //$this->getConfig()->get("debug-mode");
+    $this->debug = false; //$this->getConfig()->get("debug-mode");
     $this->totalerrors = 0;
     $this->checkForConfigErrors();
     if($this->async !== true && $this->provider === "mysql"){
@@ -51,7 +52,7 @@ class Loader extends PluginBase implements Listener{
     $errors = 0;
     if($this->getConfig()->get("version") !== $this->version){
       $this->status = "failed";
-      $this->getServer()->getLogger()->info("§7[§eException§7] §3Updating config...xAuth will be enabled soon...§7.");
+      array_push($this->mainlogger, "§3Old xAuth config detected. Updating...");
       $myoptions=array();
       array_push($myoptions, $this->provider); //Push old data so it can be inserted in new config.
       $this->updateConfig($myoptions);
@@ -86,9 +87,11 @@ class Loader extends PluginBase implements Listener{
       $this->getConfig()->save();
       $errors++;
     }
-    if($this->debug === true or $this->logger === true && !file_exists($this->getDataFolder() . "xauthlogs")){
-      $this->getServer()->getLogger()->info("§7[§axAuth§7] §eCreating §axAuth §elogger§7...");
-      $this->xauthlogger = new Config($this->getDataFolder() . "xauthlogs.log", Config::ENUM, array());
+    if($this->debug === true || $this->logger === true){
+      if(!file_exists($this->getDataFolder() . "xauthlogs.logs")){
+        $this->getServer()->getLogger()->info("§7[§axAuth§7] §3Creating §dx§aAuth §3logger§7...");
+        $this->xauthlogger = new Config($this->getDataFolder() . "xauthlogs.log", Config::ENUM, array());
+      }
     }
     if($this->async !== true && $this->async !== false){
       $errors++;
@@ -121,14 +124,14 @@ class Loader extends PluginBase implements Listener{
     if($this->api){
       $this->getServer()->getPluginManager()->registerEvents(new API($this), $this);
     }
-    array_push($this->mainlogger, "§7> §axAuth §3has been §aenabled§7.");
+    array_push($this->mainlogger, "§7> §dx§aAuth §3has been §aenabled§7.");
   }
   public function updateConfig($myoptions){
     if($this->debug){
       var_dump($myoptions);
     }
     if($this->version !== $this->getConfig()->get("version")){
-      $this->getServer()->getLogger()->info("§7[§axAuth§7] §3Updating xAuth config to $this->version...");
+      array_push($this->mainlogger, "§7[§axAuth§7] §3Updating xAuth config to $this->version...");
       $this->getConfig()->set("version", $this->version);
       $this->getConfig()->save();
       $this->checkForConfigErrors();

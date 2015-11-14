@@ -32,7 +32,7 @@ class LoginAndRegister implements Listener{
     		$event->getPlayer()->sendMessage("[xAuth] This server is protected by xAuth.");
     		$event->getPlayer()->sendMessage($this->plugin->getConfig()->get("join"));
     	}
-    	elseif($this->plugin->safemode){
+    	if($this->plugin->safemode && $this->plugin->status !== "enabled"){
     		$event->getPlayer()->sendMessage($this->plugin->getConfig()->get("disable"));
     	}
     	if($this->plugin->status === "enabled"){
@@ -44,6 +44,7 @@ class LoginAndRegister implements Listener{
     			}
     			else{
     				$event->getPlayer()->sendMessage($this->plugin->getConfig()->get("please-register"));
+                    $event->getPlayer()->sendMessage($this->plugin->getConfig()->get("wanted"));
     				$this->plugin->loginmanager[$event->getPlayer()->getId()] = 0;
     			}
     		}
@@ -51,11 +52,12 @@ class LoginAndRegister implements Listener{
     }
     public function onChat(PlayerChatEvent $event){
     	$message = $event->getMessage();
-    	if($this->plugin->loginmanager[$event->getPlayer()->getId] === 1){
+    	if($this->plugin->loginmanager[$event->getPlayer()->getId()] === 1){
     		if($this->plugin->provider === "yml"){
-    			$myuser = new Config($this->myuser . "users/" . strtolower($event->getPlayer()->getName() . ".yml"), Config::YAML);
-    			if(md5($message) === $myuser->get("password"));
+    			$myuser = new Config($this->plugin->getDataFolder() . "players/" . strtolower($event->getPlayer()->getName() . ".yml"), Config::YAML);
+    			if(md5($message) === $myuser->get("password")){
     				$this->plugin->loginmanager[$event->getPlayer()->getId()] = true;
+                    $this->plugin->chatprotection[$event->getPlayer()->getId()] = md5($message);
     				$event->getPlayer()->sendMessage($this->plugin->getConfig()->get("logged"));
     			}
     			else{
@@ -66,8 +68,8 @@ class LoginAndRegister implements Listener{
     	}
     	if($this->plugin->loginmanager[$event->getPlayer()->getId()] === 0 && !isset($this->plugin->chatprotection[$event->getPlayer()->getId()])){
     		if($this->plugin->provider === "yml"){
-    			$this->plugin->chatprotection = $this->proccessPassword($message, $event->getPlayer());
-    			if(isset($this->plugin->chatprotection[$event->getPlayer()->getId])){
+    			$this->plugin->chatprotection[$event->getPlayer()->getId()] = $this->proccessPassword($message, $event->getPlayer());
+    			if(isset($this->plugin->chatprotection[$event->getPlayer()->getId()])){
     				$event->getPlayer()->sendMessage($this->plugin->getConfig()->get("success"));
     			}
     		}
@@ -75,9 +77,11 @@ class LoginAndRegister implements Listener{
     	}
     	if($this->plugin->loginmanager[$event->getPlayer()->getId()] === 0 && isset($this->plugin->chatprotection[$event->getPlayer()->getId()])){
     		if(md5($message) === $this->plugin->chatprotection[$event->getPlayer()->getId()]){
-    			$myuser = new Config($this->myuser . "users/" . strtolower($event->getPlayer()->getName() . ".yml"), Config::YAML);
+    			$myuser = new Config($this->plugin->getDataFolder() . "players/" . strtolower($event->getPlayer()->getName() . ".yml"), Config::YAML);
     			$myuser->set("password", $this->plugin->chatprotection[$event->getPlayer()->getId()]);
     			$myuser->save();
+                $this->plugin->registered->set(strtolower($event->getPlayer()->getName()));
+                $this->plugin->registered->save();
     			if($myuser->get("password") === md5($message)){
     				$event->getPlayer()->sendMessage($this->plugin->getConfig()->get("registered"));
     				$this->plugin->loginmanager[$event->getPlayer()->getId()] = true;
@@ -90,25 +94,26 @@ class LoginAndRegister implements Listener{
     			$event->getPlayer()->sendMessage($this->plugin->getConfig()->get("no-success"));
     			unset($this->plugin->chatprotection[$event->getPlayer()->getId()]);
     		}
+        }
     }
     private function proccessPassword($password, $player){
-    	if(strlen($password) > 5){
+    	if(strlen($password) < 5){
     		$player->sendMessage($this->plugin->getConfig()->get("short"));
     		return;
     	}
-    	if(strlen($password) < 15){
+    	if(strlen($password) > 15){
     		$player->sendMessage($this->plugin->getConfig()->get("long"));
     		return;
     	}
     	$simplepass = strtolower($password);
-    	if($this->simplePassword === true && $this->plugin->status === "enabled"){
+    	if($this->plugin->simplepassword === true && $this->plugin->status === "enabled"){
     		if($simplepass === 123456789 || $simplepass === 987654321 || $simplepass === "asdfg" || $simplepass === "password"){
-    			$player->sendMessage($this->plugin->getConfig()->get("simple");
+    			$player->sendMessage($this->plugin->getConfig()->get("simple"));
     			unset($this->plugin->chatprotection[$event->getPlayer()->getId()]);
     			return;
     		}
     	}
-    	$myuser = new Config($this->myuser . "users/" . strtolower($player->getName() . ".yml"), Config::YAML);
+    	$myuser = new Config($this->plugin->getDataFolder() . "players/" . strtolower($player->getName() . ".yml"), Config::YAML);
     	$myuser->set("password", md5($password));
     	$myuser->save();
     	return md5($password);
