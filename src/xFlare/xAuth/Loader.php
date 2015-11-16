@@ -151,6 +151,10 @@ class Loader extends PluginBase implements Listener{
     $this->allowPlace = $this->getConfig()->get("allow-block-placing");
     $this->allowBreak = $this->getConfig()->get("allow-block-breaking");
     $this->allowCommand = $this->getConfig()->get("allow-commands");
+    $this->allowShoot = $this->getConfig()->get("allow-shoot-arrows");
+    $this->allowDrops = $this->getConfig()->get("allow-drops");
+    $this->allowPvP = $this->getConfig()->get("allow-pvp");
+    $this->allowDamage = $this->getConfig()->get("allow-damage");
     $this->simplepassword = $this->getConfig()->get("simple-passcode-blocker");
     $this->safemode = $this->getConfig()->get("safe-mode");
     $this->logger = $this->getConfig()->get("log-xauth");
