@@ -21,21 +21,23 @@ class xAuthTicks extends PluginTask{
         $this->plugin = $plugin;
     }
     public function onRun($currentTick){
-    	if($this->timeoutEnabled){
+    	# Timeout.
+    	if($this->owner->timeoutEnabled){
     		foreach($this->owner->getServer()->getOnlinePlayers() as $p){
     			if($this->owner->loginmanager[$p->getId()] !== true){
     				if(!isset($this->playerticks[$p->getId()])){
-    					$this->playerticks[$p->getId()] = 0;
+    					$this->owner->playerticks[$p->getId()] = 0;
     				}
     				$myticks = $this->owner->playerticks[$p->getId()]];
     				$myticks++;
-    				if($myticks * 20 > $this->timeoutMax){
+    				if($myticks * 20 > $this->owner->timeoutMax){
     					$p->sendMessage($this->owner->getConfig()->get("timeout");
     				}
     				$this->owner->playerticks[$p->getId()] = $myticks;
     			}
     		}
     	}
+    	# Logger.
     	if(!isset($this->owner->mainlogger[$this->owner->loggercount])){
     		return;
     	}
