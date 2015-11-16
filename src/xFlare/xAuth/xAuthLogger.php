@@ -13,16 +13,29 @@ namespace xFlare\xAuth;
 use pocketmine\Server;
 use pocketmine\scheduler\PluginTask;
 /*
-- Logs everything, sends console messages.
-- Performes lag checks and more!
+- Manages xAuth ticks. Many things are controlled here, but it's all optional!
 */
-class xAuthLogger extends PluginTask{
+class xAuthTicks extends PluginTask{
     public function __construct(Loader $plugin){
         parent::__construct($plugin);
         $this->plugin = $plugin;
-        $this->length = -1;
     }
     public function onRun($currentTick){
+    	if($this->timeoutEnabled){
+    		foreach($this->owner->getServer()->getOnlinePlayers() as $p){
+    			if($this->owner->loginmanager[$p->getId()] !== true){
+    				if(!isset($this->playerticks[$p->getId()])){
+    					$this->playerticks[$p->getId()] = 0;
+    				}
+    				$myticks = $this->owner->playerticks[$p->getId()]];
+    				$myticks++;
+    				if($myticks * 20 > $this->timeoutMax){
+    					$p->sendMessage($this->owner->getConfig()->get("timeout");
+    				}
+    				$this->owner->playerticks[$p->getId()] = $myticks;
+    			}
+    		}
+    	}
     	if(!isset($this->owner->mainlogger[$this->owner->loggercount])){
     		return;
     	}
@@ -41,7 +54,7 @@ class xAuthLogger extends PluginTask{
 	    $this->owner->getServer()->getLogger()->info($exception);
 	    if($this->owner->logger){
 		  $file = $this->plugin->getDataFolder() . "xauthlogs.log";
-    	  file_put_contents($file, $exception);
+    	  	file_put_contents($file, $exception);
 	    }
 	    if($this->owner->debug && $this->owner->loggercount > 15){
 		  $this->owner->getServer()->getLogger()->info("Dumping xAuth logger data...");
