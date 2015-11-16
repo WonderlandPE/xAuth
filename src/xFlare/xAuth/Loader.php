@@ -22,7 +22,6 @@ use pocketmine\Server;
 class Loader extends PluginBase implements Listener{
   public $loginmanager = [];
   public $chatprotection = [];
-  public $proccessmanager = [];
   public $mainlogger = [];
   public $kicklogger = [];
   public $playerticks = [];
