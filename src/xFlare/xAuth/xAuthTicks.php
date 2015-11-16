@@ -19,8 +19,26 @@ class xAuthTicks extends PluginTask{
     public function __construct(Loader $plugin){
         parent::__construct($plugin);
         $this->plugin = $plugin;
+        $this->disable = $this->owner->getConfig()->get("hotbar-disabled");
+        $this->loginhotbar = $this->owner->getConfig()->get("hotbar-login");
+        $this->registerhotbar = $this->owner->getConfig()->get("hotbar-register");
+        $this->timeout = $this->owner->getConfig()->get("timeout");
     }
     public function onRun($currentTick){
+    	# Hot bar messages.
+        if($this->owner->hotbar){
+            foreach($this->owner->getServer()->getOnlinePlayers() as $p){
+                if($this->owner->safemode === true && $this->owner->status !== "enabled"){
+                  $p->sendTip($this->disable);
+                }
+                elseif(isset($this->owner->loginmanager[$p->getId()]) && $this->owner->loginmanager[$p->getId()] === 1){
+                   $p->sendTip($this->loginhotbar);
+                }
+                elseif(isset($this->owner->loginmanager[$p->getId()]) && $this->owner->loginmanager[$p->getId()] === 0){
+                   $p->sendTip($this->registerhotbar);
+                }
+            }
+        }
     	# Timeout.
     	if($this->owner->timeoutEnabled){
     		foreach($this->owner->getServer()->getOnlinePlayers() as $p){
@@ -31,7 +49,7 @@ class xAuthTicks extends PluginTask{
     				$myticks = $this->owner->playerticks[$p->getId()]];
     				$myticks++;
     				if($myticks * 20 > $this->owner->timeoutMax){
-    					$p->sendMessage($this->owner->getConfig()->get("timeout");
+    					$p->sendMessage($this->timeout);
     				}
     				$this->owner->playerticks[$p->getId()] = $myticks;
     			}
@@ -58,8 +76,7 @@ class xAuthTicks extends PluginTask{
 		  $file = $this->plugin->getDataFolder() . "xauthlogs.log";
     	  	file_put_contents($file, $exception);
 	    }
-	    if($this->owner->debug && $this->owner->loggercount > 15){
-		  $this->owner->getServer()->getLogger()->info("Dumping xAuth logger data...");
+	    if($this->owner->loggercount > 1){ //Dump logger cache.
 		  $this->owner->mainlogger = [];
 		  $this->owner->loggercount = 0;
 	    }  
