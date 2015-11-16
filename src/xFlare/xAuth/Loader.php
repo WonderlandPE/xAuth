@@ -52,14 +52,6 @@ class Loader extends PluginBase implements Listener{
   }
   public function checkForConfigErrors(){
     $errors = 0;
-    if($this->getConfig()->get("version") !== $this->version){
-      $this->status = "failed";
-      array_push($this->mainlogger, "§3Old xAuth config detected. Updating...");
-      $myoptions=array();
-      array_push($myoptions, $this->provider); //Push old data so it can be inserted in new config.
-      $this->updateConfig($myoptions);
-      return;
-    }
     $this->registerConfigOptions();
     if(!file_exists($this->getDataFolder() . "players/") && $this->provider === "yml"){
         $this->getServer()->getLogger()->info("§7[§axAuth§7] §eCreating players folder for provider§7...");
@@ -129,21 +121,6 @@ class Loader extends PluginBase implements Listener{
       $this->getServer()->getPluginManager()->registerEvents(new API($this), $this);
     }
     array_push($this->mainlogger, "§7> §dx§aAuth §3has been §aenabled§7.");
-  }
-  public function updateConfig($myoptions){
-    if($this->debug){
-      var_dump($myoptions);
-    }
-    if($this->version !== $this->getConfig()->get("version")){
-      array_push($this->mainlogger, "§7[§axAuth§7] §3Updating xAuth config to $this->version...");
-      $this->getConfig()->set("version", $this->version);
-      $this->getConfig()->save();
-      $this->checkForConfigErrors();
-    }
-    else{
-      $this->getServer()->getLogger()->info("§7[§cError§7] §3xAuth called config update on null.");
-      $this->totalerrors++;
-    }
   }
   public function registerConfigOptions(){ //Config -> Object for less lag.
     $this->allowMoving = $this->getConfig()->get("allow-movement");
