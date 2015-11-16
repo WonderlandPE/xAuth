@@ -1,6 +1,6 @@
 # xAuth [Version: 1.0.0]
 - xAuth - The best unoffcial authentication plugin for PocketMine-MP.
-xAuth allows you to control your own servers authentication. xAuth gives you ton of config options to configure to let you see what works with your server the best. It's what SimpleAuth should of been in the first place. xAuth comes with features SimpleAuth does not have such as: Hide/show join messages, logging, debug mode, auto-updater, no permission bugs, select what to allow/disallow when not authenticated, hotbar messages, and more!
+xAuth allows you to control your own servers authentication. xAuth gives you ton of config options to configure to let you see what works with your server the best. It's what SimpleAuth should of been in the first place. xAuth comes with features SimpleAuth does not have such as: hide/show join messages, logging, debug mode, auto-updater, no permission bugs, select what to allow/disallow when not authenticated, hotbar messages, and more! All configurable with a handy-dandy config.
 
 # xAuth advantages over SimpleAuth:
 - xAuth protects users more and stops some events that SimpleAuth does not.
