@@ -19,9 +19,6 @@ xAuth allows you to control your own servers authentication. xAuth gives you ton
 
 # Features that will come soon:
 - Ability to Auto-Update plugin.
-- Add config option to protect from brute-force logins. (auto-kick)
-- Auto-kick if not logged in withen "x" seconds.
-
 
 #Should I use this over SimpleAuth?
 - Yes & no. xAuth is more up to date and better protects your server.
