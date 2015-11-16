@@ -45,7 +45,6 @@ enable-kick: false
 kick-after-seconds: 120
 
 # Kick players after X amount of invalid login attempts?
-# Not implemented yet. 
 enable-kick-invalid: false
 kick-after-invailds: 3
 
