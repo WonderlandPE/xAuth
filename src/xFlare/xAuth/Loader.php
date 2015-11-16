@@ -24,6 +24,7 @@ class Loader extends PluginBase implements Listener{
   public $chatprotection = [];
   public $proccessmanager = [];
   public $mainlogger = [];
+  public $kicklogger = [];
   public function onEnable(){
     $this->getServer()->getPluginManager()->registerEvents($this, $this);
     $this->version = "1.0.0";
@@ -163,6 +164,10 @@ class Loader extends PluginBase implements Listener{
     $this->max = $this->getConfig()->get("max-characters");
     $this->short = $this->getConfig()->get("shortest-characters");
     $this->usernamestatus = $this->getConfig()->get("show-username-auth-status");
+    $this->protectForce = $this->getConfig()->get("enable-kick-invalid");
+    if($this->protectForce){
+    	$this->maxAttempts = $this->getConfig()->get("kick-after-invailds");
+    }
     if($this->safemode !== true && $this->safemode !== false || $this->simplepassword !== true && $this->simplepassword !== false || $this->allowMoving !== true && $this->allowMoving !== false || $this->allowPlace !== true && $this->allowPlace !== false || $this->allowBreak !== true && $this->allowBreak !== false || $this->allowCommand !== true && $this->allowCommand !== false || $this->debug !== false && $this->debug !== true){
       $this->getServer()->getLogger()->info("§7[§axAuth§7] §3Config to object conversion failed, please make sure you configure the config properly!");
       $this->status = "failed";
