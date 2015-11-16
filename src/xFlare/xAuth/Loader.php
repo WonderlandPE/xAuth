@@ -25,6 +25,7 @@ class Loader extends PluginBase implements Listener{
   public $proccessmanager = [];
   public $mainlogger = [];
   public $kicklogger = [];
+  public $playerticks = [];
   public function onEnable(){
     $this->getServer()->getPluginManager()->registerEvents($this, $this);
     $this->version = "1.0.0";
