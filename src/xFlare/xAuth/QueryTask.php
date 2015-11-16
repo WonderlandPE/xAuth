@@ -9,5 +9,7 @@
                                         
                                         */
 
-#Queryies lag less when done on async, so this will do exactly that.
+/*
+- Async quries allow the server to run rather then pasuse when receiving data.
+*/
 namespace xFlare\xAuth;
