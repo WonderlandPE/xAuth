@@ -123,10 +123,7 @@ class Loader extends PluginBase implements Listener{
     $this->getServer()->getPluginManager()->registerEvents(new LoginTasks($this), $this);
     $this->getServer()->getPluginManager()->registerEvents(new LoginAndRegister($this), $this);
     $this->getServer()->getPluginManager()->registerEvents(new CommandManager($this), $this);
-    if($this->getConfig()->get("hotbar-message") === true){
-      $this->getServer()->getScheduler()->scheduleRepeatingTask(new AuthMessage($this), 20);
-    }
-    $this->getServer()->getScheduler()->scheduleRepeatingTask(new xAuthLogger($this), 20);
+    $this->getServer()->getScheduler()->scheduleRepeatingTask(new xAuthTicks($this), 20);
     if($this->api){
       $this->getServer()->getPluginManager()->registerEvents(new API($this), $this);
     }
@@ -165,6 +162,7 @@ class Loader extends PluginBase implements Listener{
     $this->short = $this->getConfig()->get("shortest-characters");
     $this->usernamestatus = $this->getConfig()->get("show-username-auth-status");
     $this->protectForce = $this->getConfig()->get("enable-kick-invalid");
+    $this->hotbar = $this->getConfig()->get("hotbar-message");
     if($this->protectForce){
     	$this->maxAttempts = $this->getConfig()->get("kick-after-invailds");
     }
