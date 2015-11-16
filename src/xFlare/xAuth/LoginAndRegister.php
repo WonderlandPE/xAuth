@@ -18,6 +18,8 @@ use pocketmine\utils\Config;
 use pocketmine\Server;
 use pocketmine\event\player\PlayerChatEvent;
 use pocketmine\event\player\PlayerJoinEvent;
+use pocketmine\event\player\PlayerQuitEvent;
+use pocketmine\event\player\PlayerkickEvent;
 /*
 - Logins/Registers players.
 - Main core functions are done here.
@@ -25,6 +27,14 @@ use pocketmine\event\player\PlayerJoinEvent;
 class LoginAndRegister implements Listener{
 	public function __construct(Loader $plugin){
         $this->plugin = $plugin;
+    }
+    public function onQuit(PlayerQuitEvent $event){
+    	$this->clearSession($event->getPlayer());
+    }
+    public function onKick(PlayerKickEvent $event){
+    	if($event->getPlayer() === null){ //If a plugion stoped this event like VIPSlots.
+    		$this->clearSession($event->getPlayer());
+    	}
     }
     public function onJoin(PlayerJoinEvent $event){
     	//Messages
