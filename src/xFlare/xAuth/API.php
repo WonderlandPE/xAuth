@@ -39,6 +39,18 @@ class API implements Listener{
     	return $this->plugin->version;
     }
     
+    #Returns a players ticks (If not logged in)
+    public function getPlayerTick($player){
+    	if($player !== null){
+    		if(isset($this->plugin->playerticks[$player->getId()])){
+    			return $this->plugin->playerticks[$player->getId()];
+    		}
+    		else{
+    			return false;
+    		}
+    	}
+    }
+    
     #Get xAuth codename.
     public function getXAuthCodeName(){
     	return $this->plugin->codename;
@@ -48,9 +60,12 @@ class API implements Listener{
     public function getxAuthConfigOption($option){
       $option = strtolower($option);
       if($option === "username" || $option === "port" || $option === "server" || $option === "password"){
-      	return false; //Nice try, your not allowed to take these options.
       	$prefix = $this->plugin->prefix;
       	array_push($this->plugin->mainlogger, "$prefix Plugin tried to access protected data!");
+      	return false; //Nice try, your not allowed to take these options.
+      }
+      if($option === "version"){
+      	return $this->plugin->version; //Return the real version, plugin version can be edited.
       }
       $statement = $this->plugin->getConfig()->get($option);
       if($statement !== false && $statement !== true){
