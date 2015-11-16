@@ -40,7 +40,6 @@ simple-passcode-blocker: true
 require-email: false
 
 # Kick players after how many seconds of not being authenticated?
-# Not implemented yet.
 enable-kick: false
 kick-after-seconds: 120
 
@@ -108,8 +107,11 @@ hotbar-disabled: "xAuth is currently disabled!"
 # If simple-passcode-blocker enabled, here are the langs:
 simple: "That password was too simple! Please add more characters."
 
-# If brute-force protection is enabled.
+# If brute-force messages if enabled.
 kick: "You tried to login to many times!"
+
+# Timout messages if enabled.
+timeout: "You been un-autenticated for too long!"
 #----------------[Messages]----------------#
 
 # Safe mode, if xAuth is not enabled due to some sort of error, don't let players do anything?
@@ -129,6 +131,10 @@ log-xauth: true
 # Auto-Update xAuth? This is very useful for getting the latest patches instantly!
 # Not implemented
 auto-update-xauth: true
+
+
+#-------- Danger Zone! --------#
+#Dangerous experimental setting that should not be edited!
 
 # For internal use only. Do NOT edit.
 version: 1.0.0
