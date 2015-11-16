@@ -42,7 +42,7 @@ class CommandManager implements Listener{
   			$this->plugin->registered->remove(strtolower($sender->getName()));
   			$this->plugin->registered->save();
   			unset($this->plugin->chatprotection[$sender->getId()]);
-  			$this->plugin->loginmanager[$sender->getId()];
+  			$this->plugin->loginmanager[$sender->getId()] = false;
   			$sender->sendMessage("You have un-registered this account.");
   		}
   	}
