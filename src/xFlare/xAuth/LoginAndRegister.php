@@ -69,6 +69,7 @@ class LoginAndRegister implements Listener{
     			}
     			else{
     				$event->getPlayer()->sendMessage($this->plugin->getConfig()->get("incorrect"));
+    				$this->protectForces($event->getPlayer());
     			}
     		}
     		return;
@@ -125,5 +126,31 @@ class LoginAndRegister implements Listener{
     	$myuser->save();
     	return md5($password);
     }
+    public fucntion clearSession($player){
+    /*
+    - This function protects memory leaks, use it when a player leaves the game.
+    */
+    	unset($this->plugin->loginmanager[$player->getId()]);
+    	unset($this->plugin->kicklogger[$player->getId()]);
+    	unset($this->plugin->processmanager[$player->getId()]);
+    	
+    }
+    private function protectForces($player){
+    	if($this->protectForce){
+    		if(!isset($this->plugin->kicklogger[$player->getId()])){ //Start protection.
+    			$this->plugin->kicklogger[$player->getId()] = 1;
+    		}
+    		else{
+    			$currentAttempts = $this->plugin->kicklogger[$player->getId()];
+    			$currentAttempts++;
+    			if($currentAttempts > $this->plugin->maxAttempts){
+    				$player->kick($this->plugin->getConfig()->get("kick"));
+    				$this->clearSession($player);
+    				return;
+    			}
+    			$this->plugin->kicklogger[$player->getId()] = $currentAttempts;
+    			return $currentAttempts;
+    		}
+    	}
+    }
 }
-
