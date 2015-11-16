@@ -111,7 +111,7 @@ simple: "That password was too simple! Please add more characters."
 kick: "You tried to login to many times!"
 
 # Timout messages if enabled.
-timeout: "You been un-autenticated for too long!"
+timeout: "You been un-authenticated for too long!"
 #----------------[Messages]----------------#
 
 # Safe mode, if xAuth is not enabled due to some sort of error, don't let players do anything?
