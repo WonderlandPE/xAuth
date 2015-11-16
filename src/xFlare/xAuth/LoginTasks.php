@@ -55,7 +55,7 @@ class LoginTasks implements Listener{
     	}
     }
     public function onDrop(PlayerDropItemEvent $event){
-        if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getPlayer()->getId()] !== true){
+        if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getPlayer()->getId()] !== true && $this->plugin->allowDrops !== true){
             $event->setCancelled(true);
         }
         elseif($this->plugin->safemode === true and $this->plugin->status !== "enabled"){
@@ -108,14 +108,16 @@ class LoginTasks implements Listener{
     }
     public function onPvP(EntityDamageEvent $event){
         if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getEntity()->getId()] !== true){
-            $event->setCancelled(true);
+        	if($this->plugin->allowPvP !== true or $this->plugin->allowDamage !== true){ //This will change soon.
+            		$event->setCancelled(true);
+        	}
         }
         elseif($this->plugin->safemode === true and $this->plugin->status !== "enabled"){
             $event->setCancelled(true);
         }
     } 
     public function onBowShoot(EntityShootBowEvent $event){
-        if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getEntity()->getId()] !== true){
+        if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getEntity()->getId()] !== true && $this->plugin->allowShoot !== true){
             $event->setCancelled(true);
         }
         elseif($this->plugin->safemode === true and $this->plugin->status !== "enabled"){
