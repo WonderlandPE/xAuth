@@ -108,6 +108,9 @@ hotbar-disabled: "xAuth is currently disabled!"
 
 # If simple-passcode-blocker enabled, here are the langs:
 simple: "That password was too simple! Please add more characters."
+
+# If brute-force protection is enabled.
+kick: "You tried to login to many times!"
 #----------------[Messages]----------------#
 
 # Safe mode, if xAuth is not enabled due to some sort of error, don't let players do anything?
