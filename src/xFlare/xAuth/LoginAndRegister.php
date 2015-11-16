@@ -137,12 +137,13 @@ class LoginAndRegister implements Listener{
     	return md5($password);
     }
     public fucntion clearSession($player){
-    /*
-    - This function protects memory leaks, use it when a player leaves the game.
-    */
+    	/*
+    	- This function protects memory leaks, use it when a player leaves the game.
+    	*/
     	unset($this->plugin->loginmanager[$player->getId()]);
     	unset($this->plugin->kicklogger[$player->getId()]);
     	unset($this->plugin->processmanager[$player->getId()]);
+    	unset($this->plugin->playerticks[$player->getId()]);
     	
     }
     private function protectForces($player){
