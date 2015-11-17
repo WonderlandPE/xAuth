@@ -27,7 +27,7 @@ class Loader extends PluginBase implements Listener{
   public $playerticks = [];
   public function onEnable(){
     $this->getServer()->getPluginManager()->registerEvents($this, $this);
-    $this->version = "1.0.0";
+    $this->version = "1.0.0 beta";
     $this->codename = "xFlaze";
     $this->prefix = "§7[§dx§aAuth§7]";
     $this->loggercount = 0;
@@ -51,6 +51,17 @@ class Loader extends PluginBase implements Listener{
   }
   public function checkForConfigErrors(){
     $errors = 0;
+    if($this->getConfig()->get("version") !== $this->version){
+    	$this->getServer()->getLogger()->info("§7[§axAuth§7] §3Upgrading config§7...");
+    	unlink($this->getDataFolder() . "config.yml");
+    	if(!file_exists($this->getDataFolder() . "config.yml")){
+    		$this->getServer()->getLogger()->info("§7[§axAuth§7] §3Config updated. Restarting§7.");
+    		$this->getServer()->shutdown();
+    	}
+    	else{
+    		$this->getServer()->getLogger()->info("§7[§axAuth§7] §3Config update failed§7!");
+    	}
+    }
     $this->registerConfigOptions();
     if(!file_exists($this->getDataFolder() . "players/") && $this->provider === "yml"){
         $this->getServer()->getLogger()->info("§7[§axAuth§7] §eCreating players folder for provider§7...");
