@@ -52,15 +52,25 @@ class LoginAndRegister implements Listener{
     	if($this->plugin->status === "enabled"){
     		if($this->plugin->provider === "yml"){
     			if($this->plugin->registered->exists(strtolower($event->getPlayer()->getName()))){
+    				if($this->plugin->ipAuth){
+    					if($myuser->get("ip") === $event->getPlayer()->getAddress()){
+    						$this->plugin->loginmanager[$event->getPlayer()->getId()] = true;
+                    				$this->plugin->chatprotection[$event->getPlayer()->getId()] = $myuser->get("password");
+                    				$event->getPlayer()->setNameTag("$name");
+                    				$event->getPlayer()->sendMessage($this->plugin->getConfig()->get("ipauthed"));
+    						$event->getPlayer()->sendMessage($this->plugin->getConfig()->get("logged"));
+    						return;
+    					}
+    				}
     				$event->getPlayer()->sendMessage($this->plugin->getConfig()->get("already-registered"));
     				$event->getPlayer()->sendMessage($this->plugin->getConfig()->get("login"));
-                    $event->getPlayer()->setNameTag("[Not-Logged-In] $name");
+                    		$event->getPlayer()->setNameTag("[Not-Logged-In] $name");
     				$this->plugin->loginmanager[$event->getPlayer()->getId()] = 1;
     			}
     			else{
     				$event->getPlayer()->sendMessage($this->plugin->getConfig()->get("please-register"));
-                    $event->getPlayer()->sendMessage($this->plugin->getConfig()->get("wanted"));
-                    $event->getPlayer()->setNameTag("[Not-Registered] $name");
+                    		$event->getPlayer()->sendMessage($this->plugin->getConfig()->get("wanted"));
+                    		$event->getPlayer()->setNameTag("[Not-Registered] $name");
     				$this->plugin->loginmanager[$event->getPlayer()->getId()] = 0;
     			}
     		}
@@ -127,12 +137,16 @@ class LoginAndRegister implements Listener{
     	if($this->plugin->simplepassword === true && $this->plugin->status === "enabled"){
     		if($simplepass === 123456789 || $simplepass === 987654321 || $simplepass === "asdfg" || $simplepass === "password"){
     			$player->sendMessage($this->plugin->getConfig()->get("simple"));
-    			unset($this->plugin->chatprotection[$event->getPlayer()->getId()]);
+    			unset($this->plugin->chatprotection[$player->getId()]);
     			return;
     		}
     	}
     	$myuser = new Config($this->plugin->getDataFolder() . "players/" . strtolower($player->getName() . ".yml"), Config::YAML);
     	$myuser->set("password", md5($password));
+    	if($this->plugin->ipAuth){
+    		$myuser->set("ip", $player->getAddress());
+    	}
+    	$myuser->set("version", $this->plugin->version); //For combatability in later updates.
     	$myuser->save();
     	return md5($password);
     }
@@ -142,7 +156,6 @@ class LoginAndRegister implements Listener{
     	*/
     	unset($this->plugin->loginmanager[$player->getId()]);
     	unset($this->plugin->kicklogger[$player->getId()]);
-    	unset($this->plugin->processmanager[$player->getId()]);
     	unset($this->plugin->playerticks[$player->getId()]);
     	
     }
