@@ -130,6 +130,26 @@ class API implements Listener{
    	return $this->owner->safemode;
    }
    
+   #Registers a player.
+   public function xAuthregisterPlayer($password, $player){
+   	if($player !== null){
+   		if(!$this->plugin->registered->exists($player->getName())){
+   			$myuser->set("password", md5($password));
+   			$myuser->set("ip", $this->getAddress()); 
+   			$myuser->save();
+   			$this->plugin->registered->set(strtolower($player->getName()));
+   			$this->plugin->registered->save();
+   			$player->sendMessage($this->plugin->getConfig()->get("registered"));
+   		}
+   		else{
+   			if($this->debug){
+   				array_push($this->plugin->mainlogger, "Cannot register offline players!"); //Don't want bad plugins to send inccorect data.
+   			}
+   			return false;
+   		}
+   	}
+   }
+   
    #Disables xAuth..Dangerous since auth will turn off, but safe-mode will force-fully kick in.
    #Returns false if already disabled, returns true if it has been disabled.
    public function disablexAuth(){
