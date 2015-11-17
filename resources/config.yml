@@ -99,6 +99,7 @@ long: "That password was too long!"
 please-register: "Please regster this account to play!"
 wanted: "Type your wanted password in chat."
 sharing: "Do not share your password!"
+ipauthed: "You have been ip-authed."
 
 # Hotbar messages if enabled.
 hotbar-login: "Please login to play!"
@@ -133,9 +134,8 @@ log-xauth: true
 # Not implemented
 auto-update-xauth: true
 
-
 #-------- Danger Zone! --------#
-#Dangerous experimental setting that should not be edited!
+# Dangerous experimental setting that should not be edited!
 
 # For internal use only. Do NOT edit.
-version: 1.0.0
+version: "1.0.0 beta"
