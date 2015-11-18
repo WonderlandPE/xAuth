@@ -28,14 +28,27 @@ class CommandManager implements Listener{
         	switch (strtolower($command->getName())){
             		case "changepw":
             			return; //Not ready yet
-            			$this->changeMyPassword($sender);
+            			$this->changeMyPassword($sender, $args);
                 		break;
                 	case "unregister":
             			$this->unregisterAccount($sender);
                 		break;
         	}
   	}
-  	private function changeMyPassword($sender){
+  	private function changeMyPassword($sender, $args){
+  		if($this->plugin->passChange){
+  			if(in_array($args[1])){
+  				$pass = $args[1];
+  				$pass = md5($pass);
+  				$this->plugin->chatprotection[$sender->getId()] = $pass;
+  				if($this->plugin->provider === "yml"){
+  					$myuser = new Config($this->plugin->getDataFolder() . "players/" . strtolower($event->getPlayer()->getName() . ".yml"), Config::YAML);
+  					$myuser->set("password", $pass);
+  					$myuser->set("version", $this->pluin->version);
+  					$Myuser->save();
+  				}
+  			}
+  		}
   	}
   	private function unregisterAccount($sender){
   		if($this->provider === "yml"){
