@@ -63,6 +63,10 @@ class Loader extends PluginBase implements Listener{
     	}
     }
     $this->registerConfigOptions();
+    if($this->provider === "mysql" && $this->provider !== "yml"){
+      $this->getServer()->getLogger()->info("§7[§cError§7] §3MySQL support is not implemented yet, invaild §ax§dAuth §3provider§7!\nSwitching too YML.");
+      $this->provider = "yml";
+    }
     if(!file_exists($this->getDataFolder() . "players/") && $this->provider === "yml"){
         $this->getServer()->getLogger()->info("§7[§axAuth§7] §eCreating players folder for provider§7...");
 	      @mkdir($this->getDataFolder() . "players/");			
@@ -71,11 +75,6 @@ class Loader extends PluginBase implements Listener{
       $this->getServer()->getLogger()->info("§7[§axAuth§7] §eCannot create players folder§7!");
       $errors++;
       $this->status = "failed";
-      $this->getServer()->shutdown();
-    }
-    if($this->provider !== "mysql" && $this->provider !== "yml"){
-      $this->status = "failed";
-      $this->getServer()->getLogger()->info("§7[§cError§7] §3Invaild §ax§dAuth §3provider§7!");
       $this->getServer()->shutdown();
     }
     if($this->max < 0 or $this->short < 0){
