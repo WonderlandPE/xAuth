@@ -53,13 +53,15 @@ class Loader extends PluginBase implements Listener{
     $errors = 0;
     if($this->getConfig()->get("version") !== $this->version){
     	$this->getServer()->getLogger()->info("§7[§axAuth§7] §3Upgrading config§7...");
-    	unlink($this->getDataFolder() . "config.yml");
-    	if(!file_exists($this->getDataFolder() . "config.yml")){
-    		$this->getServer()->getLogger()->info("§7[§axAuth§7] §3Config updated. Restarting§7.");
-    		$this->getServer()->shutdown();
-    	}
-    	else{
-    		$this->getServer()->getLogger()->info("§7[§axAuth§7] §3Config update failed§7!");
+    	if($this->configUpdate() === true){
+    		unlink($this->getDataFolder() . "config.yml");
+    		if(!file_exists($this->getDataFolder() . "config.yml")){
+    			$this->getServer()->getLogger()->info("§7[§axAuth§7] §3Config updated. Restarting§7.");
+    			$this->getServer()->shutdown();
+    		}
+    		else{
+    			$this->getServer()->getLogger()->info("§7[§axAuth§7] §3Config update failed§7!");
+    		}
     	}
     }
     $this->registerConfigOptions();
@@ -152,7 +154,14 @@ class Loader extends PluginBase implements Listener{
     $this->hotbar = $this->getConfig()->get("hotbar-message");
     $this->timoutEnabled = $this->getConfig()->get("enabled-kick");
     $this->ipAuth = $this->getConfig()->get("ip-auth");
-    if($this->timoutEnaobled){
+    $this->username = $this->getConfig()->get("username");
+    $this->port = $this->getConfig()->get("port");
+    $this->server = $this->getConfig()->get("server");
+    $this->password = $this->getConfig()->get("password");
+    $this->checks = $this->getConfig()->get("database-checks");
+    $this->passChange = $this->getConfig()->get("enable-pass-changing");
+    $this->email = $this->getConfig()->get("require-email");
+    if($this->timoutEnabled){
     	$this->timoutMax = $this->getConfig()->get("kick-after-seconds");
     }
     if($this->protectForce){
@@ -164,6 +173,11 @@ class Loader extends PluginBase implements Listener{
     if($this->debug){
       $this->getServer()->getLogger()->info("§7[§axAuth-Debug§7] §3Config options have been registered.");
     }
+  }
+  private function configUpdate(){
+  	$mysettings = []; //Array of settings.
+  	array_push($this->mysettings, $this->provider, $this->username, $this->password, $this->port, $this->server, $this->ipAuth, $this->max, $this->short, $this->async, $this->checks, $this->hotbar, $this->passChange, $this->simplepassword, $this->email, $this->timeoutEnabled, $this->protectForce, $this->allowMoving, $this->allowCommand, $this->allowDrops, $this->allowPlace, $this->allowBreak, $this->allowPvP, $this->allowDamage, $this->allowShoot, $this->safemode, $this->debug, $this->logger, $this->api);
+  	return true;
   }
 }
     
