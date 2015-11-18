@@ -161,6 +161,8 @@ class Loader extends PluginBase implements Listener{
     $this->checks = $this->getConfig()->get("database-checks");
     $this->passChange = $this->getConfig()->get("enable-pass-changing");
     $this->email = $this->getConfig()->get("require-email");
+    $this->join = $this->getConfig()->get("player-join");
+    $this->quit = $this->getConfig()->get("player-quit");
     if($this->timoutEnabled){
     	$this->timoutMax = $this->getConfig()->get("kick-after-seconds");
     }
