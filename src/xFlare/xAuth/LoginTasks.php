@@ -135,12 +135,12 @@ class LoginTasks implements Listener{
     	}
     }
     public function onJoin(PlayerJoinEvent $event){
-        if($this->plugin->status === "enabled" && $this->plugin->getConfig()->get("player-join") !== true){
+        if($this->plugin->status === "enabled" && $this->plugin->join !== true){
             $event->setJoinMessage("");
         }
     }
     public function onQuit(PlayerQuitEvent $event){
-        if($this->plugin->status === "enabled" && $this->plugin->getConfig()->get("player-quit") !== true){
+        if($this->plugin->status === "enabled" && $this->plugin->quit !== true){
             $event->setQuitMessage("");
         }
     }
