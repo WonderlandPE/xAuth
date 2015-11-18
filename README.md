@@ -1,8 +1,7 @@
 # xAuth - The best unoffcial authentication plugin for PocketMine-MP.
-- xAuth:
 xAuth allows you to control your own servers authentication. xAuth gives you ton of config options to configure to let you see what works with your server the best. It's what SimpleAuth should of been in the first place. xAuth comes with features SimpleAuth does not have such as: hide/show join messages, logging, debug mode, auto-updater, no permission bugs, select what to allow/disallow when not authenticated, hotbar messages, and more! All configurable with a handy-dandy config.
 
-### xAuth advantages over SimpleAuth:
+## xAuth advantages over SimpleAuth:
 - xAuth protects users more and stops some events that SimpleAuth does not.
 - xAuth does not have permission bugs.
 - You can choose what gets stoped if a player is not logged in.
@@ -20,24 +19,19 @@ xAuth allows you to control your own servers authentication. xAuth gives you ton
 ### Features that will come soon:
 - Ability to Auto-Update plugin.
 
-### Should I use this over SimpleAuth?
-- Yes & no. xAuth is more up to date and better protects your server.
-- SimpleAuth is much better at hashing passwords & xAuth is still in development!
-
-
-### Can I use xAuth now?
-- Yes! You can obviously use it, but that does not mean it's ready for production!
-
-### Can I contribute?
-- I encourage you too! Please try to use my coding style, otherwise I may go crazy.
-
-### Can you add support for other database types?
-- Only MySQL & YML will be supported. I don't reccomend using any other type of database format.
-
 ### FAQ
 - When will this be ready for production?
 Answer: Soon!
 
-- My question is not listed?
-Answer: Feel free to tweet at @xFlare_Dev on twitter.
+- Can I use xAuth now?
+Answer: Yes! YML support is done but may be unstable.
+
+- Can you add support for other database types?
+Answer: No, You should not really use anything other then MySQL and YML.
+
+- Can I contribute?
+Answer: Yes! Feel free too. Though first read the contributing rules.
+
+- Should I use this over SimpleAuth?
+Answer: SimpleAuth is great at hashing passwords and all, but xAuth gives you more configuration options. The choice is yours!
 
