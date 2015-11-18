@@ -107,7 +107,7 @@ class LoginTasks implements Listener{
     	}
     }
     public function onPvP(EntityDamageEvent $event){
-        if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getEntity()->getId()] !== true){
+        if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getEntity()->getId()] !== true && $event->getPlayer() instancof Player){
         	if($this->plugin->allowPvP !== true or $this->plugin->allowDamage !== true){ //This will change soon.
             		$event->setCancelled(true);
         	}
