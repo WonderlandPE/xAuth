@@ -90,6 +90,7 @@ class API implements Listener{
         else{
           return false;
         }
+      }
     }
     
     #Important! Always check the status on your plugins or xAuth may not function right.
