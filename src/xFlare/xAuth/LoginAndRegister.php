@@ -49,7 +49,7 @@ class LoginAndRegister implements Listener{
     	$this->clearSession($event->getPlayer());
     }
     public function onKick(PlayerKickEvent $event){
-    	if($event->getPlayer() === null){ //If a plugion stoped this event like VIPSlots.
+    	if($event->getPlayer() === null){ //If a plugin stoped this event like VIPSlots.
     		$this->clearSession($event->getPlayer());
     	}
     }
@@ -174,6 +174,7 @@ class LoginAndRegister implements Listener{
     	unset($this->plugin->loginmanager[$player->getId()]);
     	unset($this->plugin->kicklogger[$player->getId()]);
     	unset($this->plugin->playerticks[$player->getId()]);
+    	unset($this->plugin->chatprotection[$player->getId()]);
     	
     }
     private function protectForces($player){
