@@ -69,11 +69,11 @@ class API implements Listener{
       }
       $statement = $this->plugin->getConfig()->get($option);
       if($statement !== false && $statement !== true){
-      	return false;
       	if($this->plugin->debug){
       		$prefix = $this->plugin->prefix;
       	 	array_push($this->plugin->mainlogger, "$prefix Plugin tried to get an invaild option!");
       	}
+      	return false;
       }
       else{
       	return $statement;
