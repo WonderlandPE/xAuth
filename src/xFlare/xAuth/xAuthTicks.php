@@ -49,7 +49,7 @@ class xAuthTicks extends PluginTask{
     				$myticks = $this->owner->playerticks[$p->getId()]];
     				$myticks++;
     				if($myticks * 20 > $this->owner->timeoutMax){
-    					$p->sendMessage($this->timeout);
+    					$p->kick($this->timeout);
     				}
     				$this->owner->playerticks[$p->getId()] = $myticks;
     			}
