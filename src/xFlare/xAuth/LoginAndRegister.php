@@ -19,7 +19,7 @@ use pocketmine\Server;
 use pocketmine\event\player\PlayerChatEvent;
 use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\event\player\PlayerQuitEvent;
-use pocketmine\event\player\PlayerkickEvent;
+use pocketmine\event\player\PlayerKickEvent;
 /*
 - Logins/Registers players.
 - Main core functions are done here.
@@ -167,7 +167,7 @@ class LoginAndRegister implements Listener{
     	$myuser->save();
     	return md5($password);
     }
-    public fucntion clearSession($player){
+    public function clearSession($player){
     	/*
     	- This function protects memory leaks, use it when a player leaves the game.
     	*/
