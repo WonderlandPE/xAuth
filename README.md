@@ -19,7 +19,7 @@ xAuth allows you to control your own servers authentication. xAuth gives you ton
 ## Features that will come soon:
 - Ability to Auto-Update plugin.
 
-### FAQ
+# FAQ
 - When will this be ready for production?
 Answer: Soon!
 
