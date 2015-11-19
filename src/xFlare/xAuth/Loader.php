@@ -25,9 +25,10 @@ class Loader extends PluginBase implements Listener{
   public $mainlogger = [];
   public $kicklogger = [];
   public $playerticks = [];
+  private $mysettings = [];
   public function onEnable(){
     $this->getServer()->getPluginManager()->registerEvents($this, $this);
-    $this->version = "1.0.0 beta";
+    $this->version = "1.0.0 beta 2";
     $this->codename = "xFlaze";
     $this->prefix = "§7[§dx§aAuth§7]";
     $this->loggercount = 0;
@@ -51,12 +52,13 @@ class Loader extends PluginBase implements Listener{
   }
   public function checkForConfigErrors(){
     $errors = 0;
+    $this->registerConfigOptions();
     if($this->getConfig()->get("version") !== $this->version){
     	$this->getServer()->getLogger()->info("§7[§axAuth§7] §3Upgrading config§7...");
     	if($this->configUpdate() === true){
     		unlink($this->getDataFolder() . "config.yml");
     		if(!file_exists($this->getDataFolder() . "config.yml")){
-    			$this->getServer()->getLogger()->info("§7[§axAuth§7] §3Config updated. Restarting§7.");
+    			$this->getServer()->getLogger()->info("§7[§axAuth§7] §3Config updated§7.");
     			$this->getServer()->shutdown();
     		}
     		else{
@@ -64,7 +66,6 @@ class Loader extends PluginBase implements Listener{
     		}
     	}
     }
-    $this->registerConfigOptions();
     if($this->provider === "mysql" && $this->provider !== "yml"){
       $this->getServer()->getLogger()->info("§7[§cError§7] §3MySQL support is not implemented yet, invaild §ax§dAuth §3provider§7!\nSwitching too YML.");
       $this->provider = "yml";
@@ -152,7 +153,7 @@ class Loader extends PluginBase implements Listener{
     $this->usernamestatus = $this->getConfig()->get("show-username-auth-status");
     $this->protectForce = $this->getConfig()->get("enable-kick-invalid");
     $this->hotbar = $this->getConfig()->get("hotbar-message");
-    $this->timoutEnabled = $this->getConfig()->get("enabled-kick");
+    $this->timeoutEnabled = $this->getConfig()->get("enabled-kick");
     $this->ipAuth = $this->getConfig()->get("ip-auth");
     $this->username = $this->getConfig()->get("username");
     $this->port = $this->getConfig()->get("port");
@@ -164,8 +165,8 @@ class Loader extends PluginBase implements Listener{
     $this->join = $this->getConfig()->get("player-join");
     $this->quit = $this->getConfig()->get("player-quit");
     $this->import = $this->getConfig()->get("import-from-simpleauth");
-    if($this->timoutEnabled){
-    	$this->timoutMax = $this->getConfig()->get("kick-after-seconds");
+    if($this->timeoutEnabled){
+    	$this->timeoutMax = $this->getConfig()->get("kick-after-seconds");
     }
     if($this->protectForce){
     	$this->maxAttempts = $this->getConfig()->get("kick-after-invailds");
@@ -181,8 +182,8 @@ class Loader extends PluginBase implements Listener{
     }
   }
   private function configUpdate(){
-  	$mysettings = []; //Array of settings.
   	array_push($this->mysettings, $this->provider, $this->username, $this->password, $this->port, $this->server, $this->ipAuth, $this->max, $this->short, $this->async, $this->checks, $this->hotbar, $this->passChange, $this->simplepassword, $this->email, $this->timeoutEnabled, $this->protectForce, $this->allowMoving, $this->allowCommand, $this->allowDrops, $this->allowPlace, $this->allowBreak, $this->allowPvP, $this->allowDamage, $this->allowShoot, $this->safemode, $this->debug, $this->logger, $this->api);
+    $this->saveDefaultConfig();
   	return true;
   }
 }
