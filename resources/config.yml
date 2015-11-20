@@ -1,14 +1,9 @@
 # xAuth by xFlare config file.
-# Some options may not work properly yet!
 
 #------------[Authenticatin Settings]------------#
 # Type of authentication?
-# YML or MySQL?
+# Options: YML & MYSQL.
 autentication-type: YML
-
-# Import from SimpleAuth? This option allows xAuth to get players data from SimpleAuth and import them.
-# Not implemented.
-import-from-simpleauth: false
 
 # If MYSQL enabled, provide details here. No one will be able to see it.
 username: ""
@@ -53,8 +48,12 @@ kick-after-invailds: 3
 
 # Max numbers of registered accounts allowed per IP?
 # Set to false if you want to allow unlimited accounts.
+# Not implemented.
 max-accounts: 5
 
+# Delete old accounts that have not been used for a while?
+# Not implemented.
+delete-old-accounts: false
 #------------[Authenticatin Settings]------------#
 
 
@@ -68,11 +67,6 @@ allow-shoot-arrows: false
 allow-drops: false
 allow-pvp: false
 allow-damage: false
-
-# Save settings to memeory or pull from config directly?
-# Saving to memeory is faster, but pulling from config is more conveinent. 
-# Not implemented
-save-to-memory: true
 #------------[Auth Events]------------#
 
 
@@ -145,5 +139,11 @@ auto-update-xauth: true
 #-------- Danger Zone! --------#
 # Dangerous experimental setting that should not be edited!
 
+# Change tick rate. 
+tick-rate: 20
+
+# Don't close session? May cause memory leaks!
+close-session: true
+
 # For internal use only. Do NOT edit.
-version: "1.0.0 beta 2"
+version: "1.0.0 beta 3"
