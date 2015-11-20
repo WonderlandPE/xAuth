@@ -126,7 +126,7 @@ hotbar-disabled: "xAuth is currently disabled!"
 simple: "That password was too simple! Please add numbers and make it more unique."
 
 # If brute-force messages if enabled.
-kick: "You tried to login to many times!"
+kick: "You tried too login to many times!"
 
 # Timout messages if enabled.
 timeout: "You been un-authenticated for too long!"
