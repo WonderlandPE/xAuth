@@ -56,7 +56,7 @@ class CommandManager implements Listener{
   			$this->plugin->registered->save();
   			unset($this->plugin->chatprotection[$sender->getId()]);
   			$this->plugin->loginmanager[$sender->getId()] = 0;
-  			$sender->sendMessage($this->plugin->getConfig()->get("unregister");
+  			$sender->sendMessage($this->plugin->getConfig()->get("unregister"));
   		}
   	}
 }
