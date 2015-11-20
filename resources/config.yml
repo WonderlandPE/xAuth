@@ -98,7 +98,7 @@ show-username-auth-status: true
 #----------------[Messages]----------------#
 # Messages sent throughout the plugin.
 # Use a line break to split chat messages. Use: \n
-# Add a splash color with color symbols! Use: §<letter/number>
+# Add a splash of color with color symbols! Use: §<letter/number>
 join: "Welcome to my server!"
 login: "Please log-in to play."
 registered: "You are now registered."
