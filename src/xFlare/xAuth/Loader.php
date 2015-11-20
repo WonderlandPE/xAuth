@@ -28,7 +28,7 @@ class Loader extends PluginBase implements Listener{
   private $mysettings = [];
   public function onEnable(){
     $this->getServer()->getPluginManager()->registerEvents($this, $this);
-    $this->version = "1.0.0 beta 4";
+    $this->version = "1.0.0 beta 5";
     $this->codename = "xFlaze";
     $this->prefix = "§7[§dx§aAuth§7]";
     $this->loggercount = 0;
@@ -113,6 +113,12 @@ class Loader extends PluginBase implements Listener{
       $this->getConfig()->save();
       $this->async = false;
     }
+    if($this->plugin->provider !== "yml" && $this->getConfig()->get("check-yml") === true){
+    	$this->checkYML = false;
+    	$this->getConfig()->set("check-yml", false);
+    	$this->getConfig()->save();
+    	$errors++;
+    }
     if($this->getConfig()->get("dump-logger") < 1){
       $this->getConfig()->set("dump-logger", 1);
       $this->getConfig()->save();
@@ -174,6 +180,7 @@ class Loader extends PluginBase implements Listener{
     $this->quit = $this->getConfig()->get("player-quit");
     $this->import = $this->getConfig()->get("import-from-simpleauth");
     $this->maxaccounts = $this->getConfig()->get("max-accounts");
+    $this->checkYML = $this->getConfig()->get("check-yml");
     if($this->timeoutEnabled){
     	$this->timeoutMax = $this->getConfig()->get("kick-after-seconds");
     }
