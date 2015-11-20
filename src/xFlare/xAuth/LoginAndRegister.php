@@ -43,6 +43,7 @@ class LoginAndRegister implements Listener{
         $this->messageRegistered = $this->plugin->getConfig()->get("registered");
         $this->messageWanted = $this->plugin->getConfig()->get("wanted");
         $this->messageNoSuccess = $this->plugin->getConfig()->get("no-success");
+        $this->session = $this->plugin->getConfig()->get("close-session");
         
     }
     public function onQuit(PlayerQuitEvent $event){
@@ -171,10 +172,12 @@ class LoginAndRegister implements Listener{
     	/*
     	- This function protects memory leaks, use it when a player leaves the game.
     	*/
-    	unset($this->plugin->loginmanager[$player->getId()]);
-    	unset($this->plugin->kicklogger[$player->getId()]);
-    	unset($this->plugin->playerticks[$player->getId()]);
-    	unset($this->plugin->chatprotection[$player->getId()]);
+    	if($this->session){
+    		unset($this->plugin->loginmanager[$player->getId()]);
+    		unset($this->plugin->kicklogger[$player->getId()]);
+    		unset($this->plugin->playerticks[$player->getId()]);
+    		unset($this->plugin->chatprotection[$player->getId()]);
+    	}
     	
     }
     private function protectForces($player){
