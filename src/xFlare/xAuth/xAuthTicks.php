@@ -62,13 +62,13 @@ class xAuthTicks extends PluginTask{
         $message = $this->owner->mainlogger[$this->owner->loggercount];
     	$this->owner->loggercount++;
     	if($this->owner->status === "enabled"){
-      		$prefix = "[xAuth]";
+      		$prefix = "§7[§axAuth§7]";
     	}
     	if($this->owner->status === "failed"){
-      		$prefix = "[Failure]";
+      		$prefix = "§7[§cFailure§7]";
     	}
     	if($this->owner->status === null){
-      		$prefix = "[PreloadError]";
+      		$prefix = "§7[§ePreloadError§7]";
     	}
     	$exception = "$prefix $message";
 	    $this->owner->getServer()->getLogger()->info($exception);
@@ -76,7 +76,7 @@ class xAuthTicks extends PluginTask{
 		  $file = $this->plugin->getDataFolder() . "xauthlogs.log";
     	  	file_put_contents($file, $exception);
 	    }
-	    if($this->owner->loggercount > 1){ //Dump logger cache.
+	    if($this->owner->loggercount > $this->getConfig()->get("dump-logger")){ //Dump logger cache.
 		  $this->owner->mainlogger = [];
 		  $this->owner->loggercount = 0;
 	    }  
