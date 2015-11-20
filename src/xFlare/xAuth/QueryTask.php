@@ -10,6 +10,6 @@
                                         */
 
 /*
-- Async quries allow the server to run rather then pasuse when receiving data.
+- Async quries allow the server to run rather then pause when receiving data.
 */
 namespace xFlare\xAuth;
