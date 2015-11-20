@@ -93,6 +93,9 @@ class Loader extends PluginBase implements Listener{
     if($this->provider === "yml"){
       $this->registered = new Config($this->getDataFolder() . "registered.txt", Config::ENUM, array());
     }
+    if($this->maxaccounts !== false){
+      $this->ips = new Config($this->getDataFolder() . "ips.txt", Config::ENUM, array());
+    }
     if($this->logger !== true && $this->debug !== false){
       $this->getConfig()->set("log-xauth", true);
       $this->getConfig()->save();
@@ -165,6 +168,7 @@ class Loader extends PluginBase implements Listener{
     $this->join = $this->getConfig()->get("player-join");
     $this->quit = $this->getConfig()->get("player-quit");
     $this->import = $this->getConfig()->get("import-from-simpleauth");
+    $this->maxaccounts = $this->getConfig()->get("max-accounts");
     if($this->timeoutEnabled){
     	$this->timeoutMax = $this->getConfig()->get("kick-after-seconds");
     }
