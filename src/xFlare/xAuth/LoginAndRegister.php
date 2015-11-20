@@ -33,7 +33,7 @@ class LoginAndRegister implements Listener{
         $this->messageRegisterPlease = $this->plugin->getConfig()->get("please-registered");
         $this->messageAlreadyRegistered = $this->plugin->getConfig()->get("already-registered");
         $this->messageIncorrect = $this->plugin->getConfig()->get("incorrect");
-        $this->messageKick = $this->plugin->getConfig()->get("kicked");
+        $this->messageKick = $this->plugin->getConfig()->get("kick");
         $this->messageLogin = $this->plugin->getConfig()->get("login");
         $this->messageSimple = $this->plugin->getConfig()->get("simple");
         $this->messageShort = $this->plugin->getConfig()->get("short");
@@ -169,7 +169,7 @@ class LoginAndRegister implements Listener{
     	
     }
     private function protectForces($player){
-    	if($this->protectForce){
+    	if($this->plugin->protectForce){
     		if(!isset($this->plugin->kicklogger[$player->getId()])){ //Start protection.
     			$this->plugin->kicklogger[$player->getId()] = 1;
     		}
