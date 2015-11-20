@@ -42,7 +42,7 @@ class xAuthTicks extends PluginTask{
     	# Timeout.
     	if($this->owner->timeoutEnabled){
     		foreach($this->owner->getServer()->getOnlinePlayers() as $p){
-    			if($this->owner->loginmanager[$p->getId()] !== true){
+    			if(isset($this->plugin->loginmanager[$p->getId()]) && $this->owner->loginmanager[$p->getId()] !== true){
     				if(!isset($this->playerticks[$p->getId()])){
     					$this->owner->playerticks[$p->getId()] = 0;
     				}
