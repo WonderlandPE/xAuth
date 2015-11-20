@@ -67,30 +67,18 @@ class LoginAndRegister implements Listener{
     	if($this->plugin->safemode && $this->plugin->status !== "enabled"){
     		$event->getPlayer()->sendMessage($this->messageDisabled);
     	}
-    	if($this->plugin->status === "enabled"){
-    		if($this->plugin->provider === "yml"){
-    			if($this->plugin->registered->exists(strtolower($event->getPlayer()->getName()))){
-    				if($this->plugin->ipAuth){
-    					if($myuser->get("ip") === $event->getPlayer()->getAddress()){
-    						$this->plugin->loginmanager[$event->getPlayer()->getId()] = true;
-                    				$this->plugin->chatprotection[$event->getPlayer()->getId()] = $myuser->get("password");
-                    				$event->getPlayer()->setNameTag("$name");
-                    				$event->getPlayer()->sendMessage($this->messageIP);
-    						$event->getPlayer()->sendMessage($this->messageLoggedIn);
-    						return;
-    					}
-    				}
-    				$event->getPlayer()->sendMessage($this->messageAlreadyRegistered);
-    				$event->getPlayer()->sendMessage($this->messageLogin);
-                    		$event->getPlayer()->setNameTag("[Not-Logged-In] $name");
-    				$this->plugin->loginmanager[$event->getPlayer()->getId()] = 1;
-    			}
-    			else{
-    				$event->getPlayer()->sendMessage($this->messagePleaseRegistered);
-                    		$event->getPlayer()->sendMessage($this->messageWanted);
-                    		$event->getPlayer()->setNameTag("[Not-Registered] $name");
-    				$this->plugin->loginmanager[$event->getPlayer()->getId()] = 0;
-    			}
+    	if($this->plugin->provider === "yml"){
+    		if($this->plugin->registered->exists(strtolower($event->getPlayer()->getName()))){
+    			$event->getPlayer()->sendMessage($this->messageAlreadyRegistered);
+    			$event->getPlayer()->sendMessage($this->messageLogin);
+                $event->getPlayer()->setNameTag("[Not-Logged-In] $name");
+    			$this->plugin->loginmanager[$event->getPlayer()->getId()] = 1;
+    		}
+    		else{
+    			$event->getPlayer()->sendMessage($this->messageRegisterPlease);
+                $event->getPlayer()->sendMessage($this->messageWanted);
+                $event->getPlayer()->setNameTag("[Not-Registered] $name");
+    			$this->plugin->loginmanager[$event->getPlayer()->getId()] = 0;
     		}
     	}
     }
@@ -102,7 +90,7 @@ class LoginAndRegister implements Listener{
     			if(md5($message) === $myuser->get("password")){
     				$this->plugin->loginmanager[$event->getPlayer()->getId()] = true;
                     $this->plugin->chatprotection[$event->getPlayer()->getId()] = md5($message);
-                    $event->getPlayer()->setNameTag("$name");
+                    $event->getPlayer()->setNameTag($event->getPlayer());
     				$event->getPlayer()->sendMessage($this->messageLoggedIn);
     			}
     			else{
