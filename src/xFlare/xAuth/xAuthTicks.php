@@ -76,7 +76,7 @@ class xAuthTicks extends PluginTask{
 		  $file = $this->plugin->getDataFolder() . "xauthlogs.log";
     	  	file_put_contents($file, $exception);
 	    }
-	    if($this->owner->loggercount > $this->getConfig()->get("dump-logger")){ //Dump logger cache.
+	    if($this->owner->loggercount > $this->owner->getConfig()->get("dump-logger")){ //Dump logger cache.
 		  $this->owner->mainlogger = [];
 		  $this->owner->loggercount = 0;
 	    }  
