@@ -47,6 +47,9 @@ class CommandManager implements Listener{
   					$myuser->set("version", $this->pluin->version);
   					$Myuser->save();
   				}
+  				elseif($this->plugin->provider === "mysql"){
+  					
+  				}
   			}
   		}
   	}
@@ -56,7 +59,11 @@ class CommandManager implements Listener{
   			$this->plugin->registered->save();
   			unset($this->plugin->chatprotection[$sender->getId()]);
   			$this->plugin->loginmanager[$sender->getId()] = 0;
+  			unlink($this->plugin->getDataFolder() . "players/" . strtolower($sender->getName()) . ".yml");
   			$sender->sendMessage($this->plugin->getConfig()->get("unregister"));
+  		}
+  		elseif($this->plugin->provider === "mysql"){
+  			
   		}
   	}
 }
