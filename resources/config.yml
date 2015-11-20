@@ -35,7 +35,8 @@ hotbar-message: true
 enable-pass-changing: true
 
 # Block simple passwords? Prevents players from easily guessing players passwords!
-simple-passcode-blocker: true
+# Blocks passwords that don't have numbers or are easy like: "987654321", "asdf", ect.
+simple-passcode-blocker: false
 
 # Require email? Will force players to use an email to register.
 # Not implemented
@@ -122,7 +123,7 @@ hotbar-register: "Please register to play!"
 hotbar-disabled: "xAuth is currently disabled!"
 
 # If simple-passcode-blocker enabled, here are the langs:
-simple: "That password was too simple! Please add more characters."
+simple: "That password was too simple! Please numbers and make it more unique."
 
 # If brute-force messages if enabled.
 kick: "You tried to login to many times!"
