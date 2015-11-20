@@ -123,7 +123,7 @@ hotbar-register: "Please register to play!"
 hotbar-disabled: "xAuth is currently disabled!"
 
 # If simple-passcode-blocker enabled, here are the langs:
-simple: "That password was too simple! Please numbers and make it more unique."
+simple: "That password was too simple! Please add numbers and make it more unique."
 
 # If brute-force messages if enabled.
 kick: "You tried to login to many times!"
