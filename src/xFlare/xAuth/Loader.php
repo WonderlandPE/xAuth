@@ -131,11 +131,11 @@ class Loader extends PluginBase implements Listener{
     $this->getServer()->getPluginManager()->registerEvents(new LoginTasks($this), $this);
     $this->getServer()->getPluginManager()->registerEvents(new LoginAndRegister($this), $this);
     $this->getServer()->getPluginManager()->registerEvents(new CommandManager($this), $this);
-    $this->getServer()->getScheduler()->scheduleRepeatingTask(new xAuthTicks($this), 20);
+    $this->getServer()->getScheduler()->scheduleRepeatingTask(new xAuthTicks($this), $this->getConfig()->get("tick-rate"));
     if($this->api){
       $this->getServer()->getPluginManager()->registerEvents(new API($this), $this);
     }
-    array_push($this->mainlogger, "§7> §dx§aAuth §3has been §aenabled§7.");
+    array_push($this->mainlogger, "§dx§aAuth §3has been §aenabled§7.");
   }
   public function registerConfigOptions(){ //Config -> Object for less lag.
     $this->allowMoving = $this->getConfig()->get("allow-movement");
