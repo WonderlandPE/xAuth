@@ -113,7 +113,7 @@ class Loader extends PluginBase implements Listener{
       $this->getConfig()->save();
       $this->async = false;
     }
-    if($this->plugin->provider !== "yml" && $this->getConfig()->get("check-yml") === true){
+    if($this->provider !== "yml" && $this->getConfig()->get("check-yml") === true){
     	$this->checkYML = false;
     	$this->getConfig()->set("check-yml", false);
     	$this->getConfig()->save();
