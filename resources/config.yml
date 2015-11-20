@@ -65,7 +65,7 @@ delete-old-accounts: false
 hash-ips: false
 hash-usernames: false
 
-# Check if YML is currpted if when players leave the game?
+# Check if YML is currpted when players leave the game?
 check-yml: true
 
 #------------[Authenticatin Settings]------------#
