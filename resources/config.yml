@@ -51,6 +51,10 @@ kick-after-seconds: 120
 enable-kick-invalid: false
 kick-after-invailds: 3
 
+# Max numbers of registered accounts allowed per IP?
+# Set to false if you want to allow unlimited accounts.
+max-accounts: 5
+
 #------------[Authenticatin Settings]------------#
 
 
