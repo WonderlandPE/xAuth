@@ -13,3 +13,15 @@
 - Async quries allow the server to run rather then pause when receiving data.
 */
 namespace xFlare\xAuth;
+
+use pocketmine\Player;
+use pocketmine\scheduler\AsyncTask;
+use pocketmine\Server;
+
+public function __construct(){
+  }
+  public function onRun() {
+  }
+  public function onCompletion(Server $server){
+  }
+}
