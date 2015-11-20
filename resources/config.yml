@@ -23,7 +23,7 @@ shortest-characters: 6
 # Only for MySQL
 use-async: false
 
-# Enable database checks? (Recomended, checks every couple of ticks to make sure the database is onlie, errors, ect)
+# Enable database checks? (Recomended, checks every couple of ticks to make sure the database is onlie, errors, etc)
 # Only for MySQL
 database-checks: false
 
@@ -98,7 +98,7 @@ show-username-auth-status: true
 #----------------[Messages]----------------#
 # Messages sent throughout the plugin.
 # Use a line break to split chat messages. Use: \n
-# Add a splash a color with color symbols! Use: §<letter/number>
+# Add a splash color with color symbols! Use: §<letter/number>
 join: "Welcome to my server!"
 login: "Please log-in to play."
 registered: "You are now registered."
