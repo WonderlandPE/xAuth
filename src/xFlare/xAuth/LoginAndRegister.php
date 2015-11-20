@@ -149,9 +149,7 @@ class LoginAndRegister implements Listener{
     	}
     	$myuser = new Config($this->plugin->getDataFolder() . "players/" . strtolower($player->getName() . ".yml"), Config::YAML);
     	$myuser->set("password", md5($password));
-    	if($this->plugin->ipAuth){
-    		$myuser->set("ip", $player->getAddress());
-    	}
+    	$myuser->set("ip", $player->getAddress());
     	$myuser->set("version", $this->plugin->version); //For combatability in later updates.
     	$myuser->save();
     	return md5($password);
