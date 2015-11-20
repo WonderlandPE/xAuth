@@ -167,7 +167,7 @@ class Loader extends PluginBase implements Listener{
     $this->usernamestatus = $this->getConfig()->get("show-username-auth-status");
     $this->protectForce = $this->getConfig()->get("enable-kick-invalid");
     $this->hotbar = $this->getConfig()->get("hotbar-message");
-    $this->timeoutEnabled = $this->getConfig()->get("enabled-kick");
+    $this->timeoutEnabled = $this->getConfig()->get("enable-kick");
     $this->ipAuth = $this->getConfig()->get("ip-auth");
     $this->username = $this->getConfig()->get("username");
     $this->port = $this->getConfig()->get("port");
