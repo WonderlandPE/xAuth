@@ -28,7 +28,7 @@ class Loader extends PluginBase implements Listener{
   private $mysettings = [];
   public function onEnable(){
     $this->getServer()->getPluginManager()->registerEvents($this, $this);
-    $this->version = "1.0.0 beta 2";
+    $this->version = "1.0.0 beta 4";
     $this->codename = "xFlaze";
     $this->prefix = "§7[§dx§aAuth§7]";
     $this->loggercount = 0;
@@ -112,6 +112,11 @@ class Loader extends PluginBase implements Listener{
       $this->getConfig()->set("use-async", false);
       $this->getConfig()->save();
       $this->async = false;
+    }
+    if($this->getConfig()->get("dump-logger") < 1){
+      $this->getConfig()->set("dump-logger", 1);
+      $this->getConfig()->save();
+      $errors++;
     }
     $this->totalerrors = $this->totalerrors + $errors;
     if($errors !== 0 || $this->totalerrors !== 0){
