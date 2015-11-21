@@ -159,7 +159,7 @@ tick-rate: 20
 # Don't close session? May cause memory leaks!
 close-session: true
 
-# When to dump logger? Less memory the if the number is lower. Can't be lower then 1!
+# When to dump logger? Less memory usage if the number is lower. Can't be lower then 1!
 dump-logger: 1
 
 # For internal use only. Do NOT edit.
