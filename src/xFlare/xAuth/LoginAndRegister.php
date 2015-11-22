@@ -57,25 +57,25 @@ class LoginAndRegister implements Listener{
     public function onJoin(PlayerJoinEvent $event){
     	//Messages
     	if($this->plugin->status === "enabled"){
-    		$event->getPlayer()->sendMessage($this->messageJoin);
+    		$event->getPlayer()->sendMessage($this->plugin->prefix . " " . $this->messageJoin);
     	}
         if($this->plugin->usernamestatus === true){
             $name = $event->getPlayer()->getName();
             $event->getPlayer()->setNameTag("[Processing..] $name");
         }
     	if($this->plugin->safemode && $this->plugin->status !== "enabled"){
-    		$event->getPlayer()->sendMessage($this->messageDisabled);
+    		$event->getPlayer()->sendMessage($this->plugin->prefix . " " . $this->messageDisabled);
     	}
     	if($this->plugin->provider === "yml"){
     		if($this->plugin->registered->exists(strtolower($event->getPlayer()->getName()))){
-    			$event->getPlayer()->sendMessage($this->messageAlreadyRegistered);
-    			$event->getPlayer()->sendMessage($this->messageLogin);
+    			$event->getPlayer()->sendMessage($this->plugin->prefix . " " . $this->messageAlreadyRegistered);
+    			$event->getPlayer()->sendMessage($this->plugin->prefix . " " . $this->messageLogin);
                 $event->getPlayer()->setNameTag("[Not-Logged-In] $name");
     			$this->plugin->loginmanager[$event->getPlayer()->getId()] = 1;
     		}
     		else{
     			$event->getPlayer()->sendMessage($this->messageRegisterPlease);
-                $event->getPlayer()->sendMessage($this->messageWanted);
+                $event->getPlayer()->sendMessage($this->plugin->prefix . " " . $this->messageWanted);
                 $event->getPlayer()->setNameTag("[Not-Registered] $name");
     			$this->plugin->loginmanager[$event->getPlayer()->getId()] = 0;
     		}
@@ -90,10 +90,10 @@ class LoginAndRegister implements Listener{
     				$this->plugin->loginmanager[$event->getPlayer()->getId()] = true;
                     $this->plugin->chatprotection[$event->getPlayer()->getId()] = md5($message);
                     $event->getPlayer()->setNameTag($event->getPlayer());
-    				$event->getPlayer()->sendMessage($this->messageLoggedIn);
+    				$event->getPlayer()->sendMessage($this->plugin->prefix . " " . $this->messageLoggedIn);
     			}
     			else{
-    				$event->getPlayer()->sendMessage($this->messageIncorrect);
+    				$event->getPlayer()->sendMessage($this->plugin->prefix . " " . $this->messageIncorrect);
     				$this->protectForces($event->getPlayer());
     			}
     		}
@@ -103,7 +103,7 @@ class LoginAndRegister implements Listener{
     		if($this->plugin->provider === "yml"){
     			$this->plugin->chatprotection[$event->getPlayer()->getId()] = $this->proccessPassword($message, $event->getPlayer());
     			if(isset($this->plugin->chatprotection[$event->getPlayer()->getId()])){
-    				$event->getPlayer()->sendMessage($this->plugin->getConfig()->get("success"));
+    				$event->getPlayer()->sendMessage($this->plugin->prefix . " " . $this->plugin->getConfig()->get("success"));
     			}
     		}
     		return;
@@ -116,32 +116,32 @@ class LoginAndRegister implements Listener{
                 $this->plugin->registered->set(strtolower($event->getPlayer()->getName()));
                 $this->plugin->registered->save();
     			if($myuser->get("password") === md5($message)){
-    				$event->getPlayer()->sendMessage($this->messageRegistered);
+    				$event->getPlayer()->sendMessage($this->plugin->prefix . " " . $this->messageRegistered);
     				$this->plugin->loginmanager[$event->getPlayer()->getId()] = true;
     			}
     			else{
-    				$event->getPlayer()->sendMessage($this->messageError); //This should not happen anyways.
+    				$event->getPlayer()->sendMessage($this->plugin->prefix . " " . $this->messageError); //This should not happen anyways.
     			}
     		}
     		else{
-    			$event->getPlayer()->sendMessage($this->messageNoSuccess);
+    			$event->getPlayer()->sendMessage($this->plugin->prefix . " " . $this->messageNoSuccess);
     			unset($this->plugin->chatprotection[$event->getPlayer()->getId()]);
     		}
         }
     }
     private function proccessPassword($password, $player){
     	if(strlen($password) < $this->plugin->short){
-    		$player->sendMessage($this->messageShort);
+    		$player->sendMessage($this->plugin->prefix . " " . $this->messageShort);
     		return;
     	}
     	if(strlen($password) > $this->plugin->max){
-    		$player->sendMessage($this->messageLong);
+    		$player->sendMessage($this->plugin->prefix . " " . $this->messageLong);
     		return;
     	}
     	$simplepass = strtolower($password);
     	if($this->plugin->simplepassword === true && $this->plugin->status === "enabled"){
     		if($simplepass === 123456789 || $simplepass === 987654321 || $simplepass === "asdfg" || $simplepass === "password" || preg_match('/[A-Za-z]/', $simplepass) && preg_match('/[0-9]/', $simplepass)){
-    			$player->sendMessage($this->messageSimple);
+    			$player->sendMessage($this->plugin->prefix . " " . $this->messageSimple);
     			unset($this->plugin->chatprotection[$player->getId()]);
     			return;
     		}
@@ -174,7 +174,7 @@ class LoginAndRegister implements Listener{
     			$currentAttempts = $this->plugin->kicklogger[$player->getId()];
     			$currentAttempts++;
     			if($currentAttempts > $this->plugin->maxAttempts){
-    				$player->kick($this->messageKick);
+    				$player->kick($this->plugin->prefix . " " . $this->messageKick);
     				$this->clearSession($player);
     				return;
     			}
