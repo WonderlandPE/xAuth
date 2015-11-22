@@ -184,4 +184,12 @@ class LoginAndRegister implements Listener{
     		}
     	}
     }
+    private function realEmail($email){ //Tries it's best to make sure email is real.
+    	if(stristr($email, '@') && stristr($email, '.com') || stristr($email, '.net') || stristr($email, '.co') || stristr($email, '.tk')){
+    		return true;
+    	}
+    	else{
+    		return false;
+    	}
+    }
 }
