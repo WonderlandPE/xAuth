@@ -79,6 +79,7 @@ allow-block-placing: false
 allow-block-breaking: false
 allow-shoot-arrows: false
 allow-drops: false
+allow-item-pickup: false
 allow-pvp: false
 allow-damage: false
 #------------[Auth Events]------------#
