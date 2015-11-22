@@ -28,7 +28,7 @@ class Loader extends PluginBase implements Listener{
   private $mysettings = [];
   public function onEnable(){
     $this->getServer()->getPluginManager()->registerEvents($this, $this);
-    $this->version = "1.0.0 beta 5";
+    $this->version = "1.0.0 beta 6";
     $this->codename = "xFlaze";
     $this->prefix = "§7[§dx§aAuth§7]";
     $this->loggercount = 0;
@@ -39,7 +39,6 @@ class Loader extends PluginBase implements Listener{
     $this->status = null; //Plugin starting up...
     $this->memorymanagerdata = 0;
     $this->debug = $this->getConfig()->get("debug-mode");
-    $this->totalerrors = 0;
     $this->checkForConfigErrors();
     if($this->async !== true && $this->provider === "mysql"){
     // $this->database = mysql; Later.
@@ -52,6 +51,7 @@ class Loader extends PluginBase implements Listener{
   }
   public function checkForConfigErrors(){
     $errors = 0;
+    $this->totalerrors = 0;
     $this->registerConfigOptions();
     if($this->getConfig()->get("version") !== $this->version){
     	$this->getServer()->getLogger()->info("§7[§axAuth§7] §3Upgrading config§7...");
