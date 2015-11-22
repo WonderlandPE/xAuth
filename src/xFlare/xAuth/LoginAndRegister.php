@@ -55,29 +55,28 @@ class LoginAndRegister implements Listener{
     	}
     }
     public function onJoin(PlayerJoinEvent $event){
-    	//Messages
     	if($this->plugin->status === "enabled"){
     		$event->getPlayer()->sendMessage($this->plugin->prefix . " " . $this->messageJoin);
-    	}
-        if($this->plugin->usernamestatus === true){
-            $name = $event->getPlayer()->getName();
-            $event->getPlayer()->setNameTag("[Processing..] $name");
-        }
-    	if($this->plugin->safemode && $this->plugin->status !== "enabled"){
-    		$event->getPlayer()->sendMessage($this->plugin->prefix . " " . $this->messageDisabled);
-    	}
-    	if($this->plugin->provider === "yml"){
-    		if($this->plugin->registered->exists(strtolower($event->getPlayer()->getName()))){
-    			$event->getPlayer()->sendMessage($this->plugin->prefix . " " . $this->messageAlreadyRegistered);
-    			$event->getPlayer()->sendMessage($this->plugin->prefix . " " . $this->messageLogin);
-                $event->getPlayer()->setNameTag("[Not-Logged-In] $name");
-    			$this->plugin->loginmanager[$event->getPlayer()->getId()] = 1;
+        	if($this->plugin->usernamestatus === true){
+            		$name = $event->getPlayer()->getName();
+            		$event->getPlayer()->setNameTag("[Processing..] $name");
+        	}
+    		if($this->plugin->provider === "yml"){
+    			if($this->plugin->registered->exists(strtolower($event->getPlayer()->getName()))){
+    				$event->getPlayer()->sendMessage($this->plugin->prefix . " " . $this->messageAlreadyRegistered);
+    				$event->getPlayer()->sendMessage($this->plugin->prefix . " " . $this->messageLogin);
+                		$event->getPlayer()->setNameTag("[Not-Logged-In] $name");
+	    			$this->plugin->loginmanager[$event->getPlayer()->getId()] = 1;
+    			}
+    			else{
+    				$event->getPlayer()->sendMessage($this->messageRegisterPlease);
+                		$event->getPlayer()->sendMessage($this->plugin->prefix . " " . $this->messageWanted);
+                		$event->getPlayer()->setNameTag("[Not-Registered] $name");
+    				$this->plugin->loginmanager[$event->getPlayer()->getId()] = 0;
+    			}
     		}
-    		else{
-    			$event->getPlayer()->sendMessage($this->messageRegisterPlease);
-                $event->getPlayer()->sendMessage($this->plugin->prefix . " " . $this->messageWanted);
-                $event->getPlayer()->setNameTag("[Not-Registered] $name");
-    			$this->plugin->loginmanager[$event->getPlayer()->getId()] = 0;
+    		if($this->plugin->provider === "mysql"){
+    			
     		}
     	}
     }
