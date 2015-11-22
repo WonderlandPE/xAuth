@@ -57,7 +57,6 @@ class LoginAndRegister implements Listener{
     public function onJoin(PlayerJoinEvent $event){
     	//Messages
     	if($this->plugin->status === "enabled"){
-    		$event->getPlayer()->sendMessage("[xAuth] This server is protected by xAuth.");
     		$event->getPlayer()->sendMessage($this->messageJoin);
     	}
         if($this->plugin->usernamestatus === true){
