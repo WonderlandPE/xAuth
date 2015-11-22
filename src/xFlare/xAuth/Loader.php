@@ -180,6 +180,7 @@ class Loader extends PluginBase implements Listener{
     $this->maxaccounts = $this->getConfig()->get("max-accounts");
     $this->checkYML = $this->getConfig()->get("check-yml");
     $this->allowPickup = $this->getConfig()->get("allow-item-pickup");
+    $this->passBlock = $this->getConfig()->get("block-saying-pass-in-chat");
     if($this->timeoutEnabled){
     	$this->timeoutMax = $this->getConfig()->get("kick-after-seconds");
     }
