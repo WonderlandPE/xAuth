@@ -67,13 +67,15 @@ class LoginAndRegister implements Listener{
     				$event->getPlayer()->sendMessage($this->plugin->prefix . " " . $this->messageLogin);
                 		$event->getPlayer()->setNameTag("[Not-Logged-In] $name");
 	    			$this->plugin->loginmanager[$event->getPlayer()->getId()] = 1;
-	    			$myuser = new Config($this->plugin->getDataFolder() . "players/" . strtolower($event->getPlayer()->getName() . ".yml"), Config::YAML);
-	    			if($this->plugin->ipAuth === true && $event->getPlayer()->getAddress === $myuser->get("ip")){
-	    				$this->plugin->loginmanager[$event->getPlayer()->getId()] = true;
-                			$this->plugin->chatprotection[$event->getPlayer()->getId()] = $myuser->get("password");
-                    			$event->getPlayer()->setNameTag($event->getPlayer());
-                    			$event->getPlayer()->sendMessage($this->plugin->prefix . " " . $this->messageIP);
-                    			return;
+	    			if($this->plugin->ipAuth){
+	    				$myuser = new Config($this->plugin->getDataFolder() . "players/" . strtolower($event->getPlayer()->getName() . ".yml"), Config::YAML);
+	    				if($myuser->get("ip") === $event->getPlayer()->getAddress()){
+	    					$this->plugin->loginmanager[$event->getPlayer()->getId()] = true;
+                				$this->plugin->chatprotection[$event->getPlayer()->getId()] = $myuser->get("password");
+                    				$event->getPlayer()->setNameTag($event->getPlayer());
+                    				$event->getPlayer()->sendMessage($this->plugin->prefix . " " . $this->messageIP);
+                    				return;
+	    				}
 	    			}
     			}
     			else{
@@ -97,6 +99,10 @@ class LoginAndRegister implements Listener{
     				$this->plugin->loginmanager[$event->getPlayer()->getId()] = true;
                 		$this->plugin->chatprotection[$event->getPlayer()->getId()] = md5($message);
                     		$event->getPlayer()->setNameTag($event->getPlayer());
+                    		if($myuser->get("ip") !== $event->getPlayer()->getAddress()){ //Ip updates.
+                    			$myuser->set("ip", $event->getPlayer()->getAddress());
+                    			$myuser->save();
+                    		}
     				$event->getPlayer()->sendMessage($this->plugin->prefix . " " . $this->messageLoggedIn);
     			}
     			else{
