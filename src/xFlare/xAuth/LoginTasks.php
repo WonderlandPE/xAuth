@@ -36,8 +36,8 @@ use pocketmine\event\player\PlayerItemConsumeEvent;
 class LoginTasks implements Listener{
 	public function __construct(Loader $plugin){
         $this->plugin = $plugin;
-        $this->message = "Please authenticate firstr to play!";
-        $this->disable = $this->plugin->getConfig()->get("disable");
+        $this->message = $this->plugin->prefix . " " . "Please authenticate firstr to play!";
+        $this->disable = $this->plugin->prefix . " " . $this->plugin->getConfig()->get("disable");
     }
     public function onChat(PlayerChatEvent $event){
     	$message = $event->getMessage();
@@ -46,7 +46,7 @@ class LoginTasks implements Listener{
         }
     	if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getPlayer()->getId()] === true && $this->plugin->chatprotection[$event->getPlayer()->getId()] === md5($message)){
     		$event->setCancelled(true); //Sharing is caring, but don't share passwords!
-            	$event->getPlayer()->sendMessage($this->plugin->getConfig()->get("sharing"));
+            	$event->getPlayer()->sendMessage($this->plugin->prefix . " " . $this->plugin->getConfig()->get("sharing"));
     	}
     	elseif($this->plugin->safemode === true and $this->plugin->status !== "enabled"){
     		$event->setCancelled(true);
