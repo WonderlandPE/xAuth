@@ -30,7 +30,7 @@ class LoginAndRegister implements Listener{
         $this->messageLoggedIn = $this->plugin->getConfig()->get("logged");
         $this->messageJoin = $this->plugin->getConfig()->get("join");
         $this->messageIP = $this->plugin->getConfig()->get("ipauthed");
-        $this->messageRegisterPlease = $this->plugin->getConfig()->get("please-registered");
+        $this->messageRegisterPlease = $this->plugin->getConfig()->get("please-register");
         $this->messageAlreadyRegistered = $this->plugin->getConfig()->get("already-registered");
         $this->messageIncorrect = $this->plugin->getConfig()->get("incorrect");
         $this->messageKick = $this->plugin->getConfig()->get("kick");
