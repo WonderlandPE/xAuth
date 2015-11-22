@@ -38,6 +38,9 @@ enable-pass-changing: true
 # Blocks passwords that don't have numbers or are easy like: "987654321", "asdf", ect.
 simple-passcode-blocker: false
 
+# Block password sharing in chat?
+block-saying-pass-in-chat: true
+
 # Require email? Will force players to use an email to register.
 # Not implemented
 require-email: false
