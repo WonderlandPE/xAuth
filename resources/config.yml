@@ -141,14 +141,13 @@ safe-mode: true
 # Safe-Mode is best with this option.
 enable-api: true
 
-# Debug-mode? (Notice: You can't turn this off on beta releases)
-debug-mode: true
+# Debug-mode? Logs extra messages and helps find bugs.
+debug-mode: false
 
 # Creates a log file and logs console outputs. You cannot turn this off with debug.
 log-xauth: true
 
 # Auto-Update xAuth? This is very useful for getting the latest patches instantly!
-# Not implemented
 auto-update-xauth: true
 
 #-------- Danger Zone! --------#
@@ -164,4 +163,4 @@ close-session: true
 dump-logger: 1
 
 # For internal use only. Do NOT edit.
-version: "1.0.0 beta 5"
+version: "1.0.0 beta 6"
