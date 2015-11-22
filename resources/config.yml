@@ -97,7 +97,7 @@ show-username-auth-status: true
 #------------[General]------------#
 
 #----------------[Messages]----------------#
-# Messages sent throughout the plugin.
+# Messages sent throughout the plugin, they are gray by default.
 # Use a line break to split chat messages. Use: \n
 # Add a splash of color with color symbols! Use: §<letter/number>
 join: "Welcome to my server!"
