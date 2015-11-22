@@ -79,7 +79,7 @@ class LoginAndRegister implements Listener{
 	    			}
     			}
     			else{
-    				$event->getPlayer()->sendMessage($this->messageRegisterPlease);
+    				$event->getPlayer()->sendMessage($this->plugin->prefix . " " . $this->messageRegisterPlease);
                 		$event->getPlayer()->sendMessage($this->plugin->prefix . " " . $this->messageWanted);
                 		$event->getPlayer()->setNameTag("[Not-Registered] $name");
     				$this->plugin->loginmanager[$event->getPlayer()->getId()] = 0;
