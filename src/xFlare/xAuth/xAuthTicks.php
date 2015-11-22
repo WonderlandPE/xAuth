@@ -18,11 +18,11 @@ use pocketmine\scheduler\PluginTask;
 class xAuthTicks extends PluginTask{
     public function __construct(Loader $plugin){
         parent::__construct($plugin);
-        $this->plugin = $plugin;
-        $this->disable = $this->owner->getConfig()->get("hotbar-disabled");
-        $this->loginhotbar = $this->owner->getConfig()->get("hotbar-login");
-        $this->registerhotbar = $this->owner->getConfig()->get("hotbar-register");
-        $this->timeout = $this->owner->getConfig()->get("timeout");
+        $this->plugin = $this->owner->prefix . " " . $plugin;
+        $this->disable = $this->owner->prefix . " " . $this->owner->getConfig()->get("hotbar-disabled");
+        $this->loginhotbar = $this->owner->prefix . " " . $this->owner->getConfig()->get("hotbar-login");
+        $this->registerhotbar = $this->owner->prefix . " " . $this->owner->getConfig()->get("hotbar-register");
+        $this->timeout = $this->owner->prefix . " " . $this->owner->getConfig()->get("timeout");
     }
     public function onRun($currentTick){
     	# Hot bar messages.
