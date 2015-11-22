@@ -38,7 +38,7 @@ class Loader extends PluginBase implements Listener{
     $this->provider = strtolower($this->getConfig()->get("autentication-type"));
     $this->status = null; //Plugin starting up...
     $this->memorymanagerdata = 0;
-    $this->debug = false; //$this->getConfig()->get("debug-mode");
+    $this->debug = $this->getConfig()->get("debug-mode");
     $this->totalerrors = 0;
     $this->checkForConfigErrors();
     if($this->async !== true && $this->provider === "mysql"){
@@ -102,10 +102,8 @@ class Loader extends PluginBase implements Listener{
       $errors++;
     }
     if($this->debug === true || $this->logger === true){
-      if(!file_exists($this->getDataFolder() . "xauthlogs.logs")){
         $this->getServer()->getLogger()->info("§7[§axAuth§7] §3Creating §dx§aAuth §3logger§7...");
         $this->xauthlogger = new Config($this->getDataFolder() . "xauthlogs.log", Config::ENUM, array());
-      }
     }
     if($this->async !== true && $this->async !== false){
       $errors++;
