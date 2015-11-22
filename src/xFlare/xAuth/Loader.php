@@ -181,6 +181,7 @@ class Loader extends PluginBase implements Listener{
     $this->import = $this->getConfig()->get("import-from-simpleauth");
     $this->maxaccounts = $this->getConfig()->get("max-accounts");
     $this->checkYML = $this->getConfig()->get("check-yml");
+    $this->allowPickup = $this->getConfig()->get("allow-item-pickup");
     if($this->timeoutEnabled){
     	$this->timeoutMax = $this->getConfig()->get("kick-after-seconds");
     }
