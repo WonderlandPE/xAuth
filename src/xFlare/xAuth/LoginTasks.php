@@ -29,6 +29,7 @@ use pocketmine\event\block\BlockBreakEvent;
 use pocketmine\event\block\BlockPlaceEvent;
 use pocketmine\event\entity\EntityShootBowEvent;
 use pocketmine\event\player\PlayerItemConsumeEvent;
+use pocketmine\event\inventory\InventoryPickupItemEvent;
 /*
 - Stops events from running when not logged in.
 - Protects password from chat.
@@ -54,8 +55,17 @@ class LoginTasks implements Listener{
     
     	}
     }
+    public function onPickUp(InventoryPickupItemEvent $event){
+    	if($event->getPlayer() instanceof Player && $this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getPlayer()->getId()] !== true && $this->plugin->allowPickup !== true){
+            $event->setCancelled(true);
+        }
+        elseif($this->plugin->safemode === true and $this->plugin->status !== "enabled"){
+    		$event->setCancelled(true);
+    		$event->getPlayer()->sendMessage($this->disable);
+    	}
+    }
     public function onDrop(PlayerDropItemEvent $event){
-        if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getPlayer()->getId()] !== true && $this->plugin->allowDrops !== true && $event->getPlayer() instanceof Player){
+        if($event->getPlayer() instanceof Player && $this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getPlayer()->getId()] !== true && $this->plugin->allowDrops !== true){
             $event->setCancelled(true);
         }
         elseif($this->plugin->safemode === true and $this->plugin->status !== "enabled"){
