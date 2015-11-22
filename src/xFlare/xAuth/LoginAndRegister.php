@@ -67,6 +67,7 @@ class LoginAndRegister implements Listener{
     				$event->getPlayer()->sendMessage($this->plugin->prefix . " " . $this->messageLogin);
                 		$event->getPlayer()->setNameTag("[Not-Logged-In] $name");
 	    			$this->plugin->loginmanager[$event->getPlayer()->getId()] = 1;
+	    			$myuser = new Config($this->plugin->getDataFolder() . "players/" . strtolower($event->getPlayer()->getName() . ".yml"), Config::YAML);
 	    			if($this->ipAuth === true && $event->getPlayer()->getAddress === $myuser->get("ip")){
 	    				$this->plugin->loginmanager[$event->getPlayer()->getId()] = true;
                 			$this->plugin->chatprotection[$event->getPlayer()->getId()] = $myuser->get("password");
