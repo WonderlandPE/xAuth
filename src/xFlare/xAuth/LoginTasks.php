@@ -45,7 +45,7 @@ class LoginTasks implements Listener{
         if($this->plugin->loginmanager[$event->getPlayer()->getId()] !== true){
             $event->setCancelled(true); //Don't allow chat when not authenticated.
         }
-    	if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getPlayer()->getId()] === true && $this->plugin->chatprotection[$event->getPlayer()->getId()] === md5($message)){
+    	if($this->plugin->status === "enabled" && $this->plugin->loginmanager[$event->getPlayer()->getId()] === true && $this->plugin->chatprotection[$event->getPlayer()->getId()] === md5($message) && $this->plugin->passBlock === true){
     		$event->setCancelled(true); //Sharing is caring, but don't share passwords!
             	$event->getPlayer()->sendMessage($this->plugin->prefix . " " . $this->plugin->getConfig()->get("sharing"));
     	}
