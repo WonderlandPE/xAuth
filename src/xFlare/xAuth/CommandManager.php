@@ -10,7 +10,6 @@
                                         */
 namespace xFlare\xAuth;
 
-use pocketmine\event\Listener;
 use pocketmine\Player;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Config;
@@ -20,7 +19,7 @@ use pocketmine\Server;
 /*
 - Manages commands, xAuth commands are proccessed here.
 */
-class CommandManager implements Listener{
+class CommandManager extends Command{
 	public function __construct(Loader $plugin){
         	$this->plugin = $plugin;
   	}
